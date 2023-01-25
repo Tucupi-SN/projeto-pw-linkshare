@@ -12,6 +12,7 @@ font-family: 'Montserrat', sans-serif; */
 :root {
     --white: #efefef;
     --purple: #bf4a9d;
+    --blue: #1b2d5f;
 }
 
 h1 {
@@ -112,7 +113,6 @@ button {
 .use-linkShare {
     height: 600px;
     width: 100%;
-    border: 1px solid red;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,13 +120,30 @@ button {
     gap: 60px;
 }
 
-.use-linkShare div {
+.use-linkShare > div {
     display: flex;
     gap: 168px;
 }
 
-.cards {
+.card {
     height: 250px;
     width: 228px;
-    background-color: red;
+    box-shadow: 10px 10px 32px rgba(27, 45, 95, 0.12);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 32px 48px 32px;
+}
+
+.primary-card {
+    background-color: var(--blue);
+}
+
+.secondary-card {
+    background-color: var(--purple);
+}
+
+.card img {
+    height: 48px;
 }
