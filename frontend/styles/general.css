@@ -43,6 +43,13 @@ h4 {
     color: var(--white);
 }
 
+h5 {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--white);
+}
+
 p {
     font-family: "Inter", sans-serif;
     font-weight: 400;
@@ -77,6 +84,7 @@ header {
 
 button {
     border: none;
+    cursor: pointer;
 }
 
 .btn {
@@ -94,6 +102,16 @@ button {
     padding: 8px 16px;
     background-color: transparent;
     border: 1px solid var(--white);
+    color: var(--white);
+}
+
+.btn-underline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: transparent;
+    text-decoration: underline;
     color: var(--white);
 }
 
