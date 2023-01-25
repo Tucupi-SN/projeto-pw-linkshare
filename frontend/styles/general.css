@@ -11,6 +11,7 @@ font-family: 'Montserrat', sans-serif; */
 
 :root {
     --white: #efefef;
+    --purple: #bf4a9d;
 }
 
 h1 {
@@ -23,7 +24,7 @@ h1 {
 h2 {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
-    font-size: 28px;
+    font-size: 24px;
     color: var(--white);
 }
 
@@ -39,4 +40,93 @@ p {
     font-weight: 400;
     font-size: 16px;
     color: var(--white);
+}
+
+body {
+    background: linear-gradient(
+        116.82deg,
+        #bf4a9d 0%,
+        #1b2d5f 100%,
+        #1b2d5f 100%,
+        #1b2d5f 100%
+    );
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 0 80px;
+    justify-content: end;
+    height: 90px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    position: fixed;
+    z-index: 10;
+}
+
+button {
+    border: none;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+    color: var(--purple);
+}
+
+.btn-outline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: transparent;
+    border: 1px solid var(--white);
+    color: var(--white);
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 800px;
+    width: 100%;
+    background: url(/frontend/assets/images/capa.jpg) center center;
+    background-size: cover;
+}
+
+.banner div {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 24px;
+}
+
+.use-linkShare {
+    height: 600px;
+    width: 100%;
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.use-linkShare div {
+    display: flex;
+    gap: 168px;
+}
+
+.cards {
+    height: 250px;
+    width: 228px;
+    background-color: red;
 }
