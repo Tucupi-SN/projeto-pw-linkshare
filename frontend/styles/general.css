@@ -36,6 +36,13 @@ h3 {
     color: var(--white);
 }
 
+h4 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--white);
+}
+
 p {
     font-family: "Inter", sans-serif;
     font-weight: 400;
@@ -146,4 +153,46 @@ button {
 
 .card img {
     height: 48px;
+}
+
+.card p:nth-child(2) {
+    font-weight: 800;
+}
+
+.about-1,
+.about-2,
+.about-3 {
+    height: 500px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    padding: 80px;
+    gap: 128px;
+}
+
+.about-1,
+.about-3 {
+    background: linear-gradient(
+        112.37deg,
+        #1b2d5f 2.11%,
+        rgba(27, 45, 95, 0) 79.53%
+    );
+}
+
+.about-2 {
+    flex-direction: row-reverse;
+}
+
+.content-about {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+footer {
+    text-align: center;
+    width: 100%;
+    padding: 60px 0;
 }
