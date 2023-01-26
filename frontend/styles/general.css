@@ -140,18 +140,18 @@ button {
 }
 
 .use-linkShare {
-    height: 600px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 60px;
+    padding: 80px;
 }
 
 .use-linkShare > div {
     display: flex;
-    gap: 168px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -161,8 +161,10 @@ button {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    flex-wrap: wrap;
     text-align: center;
     padding: 32px 32px 48px 32px;
+    margin: 64px;
 }
 
 .primary-card {
@@ -184,9 +186,7 @@ button {
 .about-1,
 .about-2,
 .about-3 {
-    height: 500px;
     width: 100%;
-
     display: flex;
     align-items: center;
     padding: 80px;
@@ -217,4 +217,26 @@ footer {
     text-align: center;
     width: 100%;
     padding: 60px 0;
+}
+
+@media (max-width: 1100px) {
+    .about-1,
+    .about-2,
+    .about-3 {
+        flex-direction: column;
+        width: 100;
+        gap: 64px;
+    }
+
+    .about-1 div,
+    .about-2 div,
+    .about-3 div {
+        width: 100%;
+    }
+
+    .about-1 img,
+    .about-2 img,
+    .about-3 img {
+        width: 100%;
+    }
 }
