@@ -31,10 +31,18 @@ label {
     padding: 24px;
 }
 
+.campo:hover {
+    transition: 300ms;
+    filter: drop-shadow(0px 0px 32px rgba(255, 255, 255, 0.3));
+}
+
 input {
+    padding: 4px 0;
     background-color: transparent;
     border: none;
+    outline: none;
     color: var(--white);
+    font-size: 16px;
 }
 
 input::placeholder {
@@ -59,7 +67,7 @@ input[type="file"] {
     width: 100px;
 }
 
-.profile-photo label{
+.profile-photo label {
     display: flex;
     align-items: center;
     gap: 8px;
