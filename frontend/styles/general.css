@@ -57,6 +57,10 @@ p {
     color: var(--white);
 }
 
+a {
+    text-decoration: none;
+}
+
 body {
     background: linear-gradient(
         116.82deg,

@@ -16,6 +16,13 @@ form {
 }
 
 label {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--white);
+}
+
+.campo {
     width: 724px;
     display: flex;
     flex-direction: column;
@@ -35,7 +42,7 @@ input::placeholder {
     opacity: 0.5;
 }
 
-form > div {
+form .buttons {
     display: flex;
     justify-content: center;
     gap: 24px;
@@ -43,4 +50,17 @@ form > div {
 
 button {
     width: 200px;
+}
+
+input[type="file"] {
+    display: none;
+    background: url(/frontend/assets/images/upload.svg);
+    height: 50px;
+    width: 100px;
+}
+
+.profile-photo label{
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
