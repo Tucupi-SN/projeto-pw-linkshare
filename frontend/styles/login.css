@@ -29,6 +29,7 @@ label {
     gap: 8px;
     background: rgba(217, 217, 217, 0.1);
     padding: 24px;
+    transition: 300ms;
 }
 
 .campo:hover {
