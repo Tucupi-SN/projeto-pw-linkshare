@@ -1,6 +1,9 @@
 const express = require("express");
 const database = require("./database/config.js");
 const { Playlist, Profile, Music } = require("./database/models.js");
+const { musicMapper } = require("./mappers/musicMapper.js");
+const { playlistMapper } = require("./mappers/playlistMapper.js");
+const { profileMapper } = require("./mappers/ProfileMapper.js");
 
 (async () => {
   try {
@@ -35,7 +38,10 @@ app.get("/playlists", async (req, res) => {
   let playlists = await Playlist.findAll({
     include: { all: true, nested: true },
   });
-  return res.json(playlists);
+
+  const mappedPlaylists = playlists.map((playlist) => playlistMapper(playlist));
+
+  return res.json(mappedPlaylists);
 });
 
 app.get("/playlists/:id", async (req, res) => {
@@ -47,13 +53,15 @@ app.get("/playlists/:id", async (req, res) => {
     res.status(404);
     return res.json({ message: "No record with the given id" });
   }
-  return res.json(playlist);
+
+  const mappedPlaylist = playlistMapper(playlist);
+
+  return res.json(mappedPlaylist);
 });
 
 app.post("/playlists", async (req, res) => {
   let body = req.body;
   let newPlaylist = await Playlist.create(body);
-  // newPlaylist.setProfile(body.profileId);
   res.status(201);
   return res.json(newPlaylist);
 });
@@ -69,7 +77,10 @@ app.patch("/playlists/:id", async (req, res) => {
     return res.json({ message: "No record with the given id" });
   }
   await playlist.update(body);
-  return res.json(playlist);
+
+  const mappedPlaylist = playlistMapper(playlist);
+
+  return res.json(mappedPlaylist);
 });
 
 app.delete("/playlists/:id", async (req, res) => {
@@ -91,7 +102,10 @@ app.get("/profiles", async (req, res) => {
   let profiles = await Profile.findAll({
     include: { all: true, nested: true },
   });
-  return res.json(profiles);
+
+  const mappedProfiles = profiles.map((profile) => profileMapper(profile));
+
+  return res.json(mappedProfiles);
 });
 
 app.get("/profiles/:id", async (req, res) => {
@@ -103,14 +117,20 @@ app.get("/profiles/:id", async (req, res) => {
     res.status(404);
     return res.json({ message: "No record with the given id" });
   }
-  return res.json(profile);
+
+  const mappedProfile = profileMapper(profile);
+
+  return res.json(mappedProfile);
 });
 
 app.post("/profiles", async (req, res) => {
   let body = req.body;
   let newProfile = await Profile.create(body);
+
+  const mappedProfile = profileMapper(newProfile);
+
   res.status(201);
-  return res.json(newProfile);
+  return res.json(mappedProfile);
 });
 
 app.patch("/profiles/:id", async (req, res) => {
@@ -124,7 +144,10 @@ app.patch("/profiles/:id", async (req, res) => {
     return res.json({ message: "No record with the given id" });
   }
   await profile.update(body);
-  return res.json(profile);
+
+  const mappedProfile = profileMapper(profile);
+
+  return res.json(mappedProfile);
 });
 
 app.delete("/profiles/:id", async (req, res) => {
@@ -145,7 +168,9 @@ app.get("/musics", async (req, res) => {
     include: { all: true, nested: true },
   });
 
-  return res.json(musics);
+  const mappedMusics = musics.map((music) => musicMapper(music));
+
+  return res.json(mappedMusics);
 });
 
 app.get("/musics/:id", async (req, res) => {
@@ -159,7 +184,9 @@ app.get("/musics/:id", async (req, res) => {
     return res.status(404).json({ message: "No record with the given id" });
   }
 
-  return res.json(music);
+  const mappedMusic = musicMapper(music);
+
+  return res.json(mappedMusic);
 });
 
 app.post("/musics", async (req, res) => {
@@ -184,7 +211,9 @@ app.patch("/musics/:id", async (req, res) => {
 
   await music.update(body);
 
-  return res.json(music);
+  const mappedMusic = musicMapper(music);
+
+  return res.json(mappedMusic);
 });
 
 app.delete("/musics/:id", async (req, res) => {
