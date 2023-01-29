@@ -13,8 +13,8 @@ const { Playlist, Profile, Music } = require("./database/models.js");
 
 (async () => {
   try {
-    await database.sync({ force: true });
-    // await database.sync(); // sem {force: true} pq senao apaga as tabelas e os dados toda vez
+    // await database.sync({ force: true });
+    await database.sync(); // sem {force: true} pq senao apaga as tabelas e os dados toda vez
     console.log("Models criados com sucesso.");
   } catch (error) {
     console.log(
@@ -32,13 +32,17 @@ app.use(express.json());
 // endpoints de Playlist
 
 app.get("/playlists", async (req, res) => {
-  let playlists = await Playlist.findAll();
+  let playlists = await Playlist.findAll({
+    include: { all: true, nested: true },
+  });
   return res.json(playlists);
 });
 
 app.get("/playlists/:id", async (req, res) => {
   let id = req.params.id;
-  let playlist = await Playlist.findByPk(id);
+  let playlist = await Playlist.findByPk(id, {
+    include: { all: true, nested: true },
+  });
   if (playlist === null) {
     res.status(404);
     return res.json({ message: "No record with the given id" });
@@ -57,7 +61,9 @@ app.post("/playlists", async (req, res) => {
 app.patch("/playlists/:id", async (req, res) => {
   let id = req.params.id;
   let body = req.body;
-  let playlist = await Playlist.findByPk(id);
+  let playlist = await Playlist.findByPk(id, {
+    include: { all: true, nested: true },
+  });
   if (playlist === null) {
     res.status(404);
     return res.json({ message: "No record with the given id" });
@@ -68,7 +74,9 @@ app.patch("/playlists/:id", async (req, res) => {
 
 app.delete("/playlists/:id", async (req, res) => {
   let id = req.params.id;
-  let playlist = await Playlist.findByPk(id);
+  let playlist = await Playlist.findByPk(id, {
+    include: { all: true, nested: true },
+  });
   if (playlist === null) {
     res.status(404);
     return res.json({ message: "No record with the given id" });
@@ -80,13 +88,17 @@ app.delete("/playlists/:id", async (req, res) => {
 // endpoints de Profile
 
 app.get("/profiles", async (req, res) => {
-  let profiles = await Profile.findAll();
+  let profiles = await Profile.findAll({
+    include: { all: true, nested: true },
+  });
   return res.json(profiles);
 });
 
 app.get("/profiles/:id", async (req, res) => {
   let id = req.params.id;
-  let profile = await Profile.findByPk(id);
+  let profile = await Profile.findByPk(id, {
+    include: { all: true, nested: true },
+  });
   if (profile === null) {
     res.status(404);
     return res.json({ message: "No record with the given id" });
@@ -104,7 +116,9 @@ app.post("/profiles", async (req, res) => {
 app.patch("/profiles/:id", async (req, res) => {
   let id = req.params.id;
   let body = req.body;
-  let profile = await Profile.findByPk(id);
+  let profile = await Profile.findByPk(id, {
+    include: { all: true, nested: true },
+  });
   if (profile === null) {
     res.status(404);
     return res.json({ message: "No record with the given id" });
@@ -115,7 +129,9 @@ app.patch("/profiles/:id", async (req, res) => {
 
 app.delete("/profiles/:id", async (req, res) => {
   let id = req.params.id;
-  let profile = await Profile.findByPk(id);
+  let profile = await Profile.findByPk(id, {
+    include: { all: true, nested: true },
+  });
   if (profile === null) {
     res.status(404);
     return res.json({ message: "No record with the given id" });
@@ -125,7 +141,9 @@ app.delete("/profiles/:id", async (req, res) => {
 });
 
 app.get("/musics", async (req, res) => {
-  const musics = await Music.findAll({ include: { all: true, nested: true } });
+  const musics = await Music.findAll({
+    include: { all: true, nested: true },
+  });
 
   return res.json(musics);
 });
