@@ -2,60 +2,105 @@ const { DataTypes } = require("sequelize");
 const database = require("./config.js");
 
 const Playlist = database.define(
-	"Playlist",
-	{
-		id: {
-			type: DataTypes.INTEGER,
-			autoIncrement: true,
-			primaryKey: true,
-		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		image: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		createdAt: {
-			type: DataTypes.DATEONLY,
-			allowNull: false,
-			defaultValue: DataTypes.NOW,
-		},
-		private: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false,
-			defaultValue: true,
-		},
-	},
-	{ updatedAt: false }
+  "Playlist",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    createdAt: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    private: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+  },
+  { updatedAt: false }
 );
 
 const Profile = database.define(
-	"Profile",
-	{
-		id: {
-			type: DataTypes.INTEGER,
-			autoIncrement: true,
-			primaryKey: true,
-		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		email: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		profilePicture: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-	},
-	{ updatedAt: false }
+  "Profile",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    profilePicture: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  { updatedAt: false }
 );
 
-module.exports = { Playlist, Profile };
+const Music = database.define(
+  "Music",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    artist: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    duration: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    musicStyle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  { updatedAt: false }
+);
+
+Playlist.hasMany(Music, {
+  foreignKey: { name: "playlistId", allowNull: false },
+});
+Music.belongsTo(Playlist, {
+  foreignKey: { name: "playlistId", allowNull: false },
+});
+Profile.hasMany(Playlist, {
+  foreignKey: { name: "profileId", allowNull: false },
+});
+Playlist.belongsTo(Profile, {
+  foreignKey: { name: "profileId", allowNull: false },
+});
+
+module.exports = { Playlist, Profile, Music };
 
 // Música: título, artista, duração, estilo musical;
 
