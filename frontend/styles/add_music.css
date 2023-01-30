@@ -1,0 +1,22 @@
+.duration {
+    display: flex;
+    gap: 8px;
+}
+
+.duration input[type="number"] {
+    width: 50px;
+    height: 30px;
+    padding: 0 0 0 12px;
+    border: 1px solid var(--white);
+}
+
+.duration > div {
+    display: flex;
+    gap: 16px;
+}
+
+.duration > div > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

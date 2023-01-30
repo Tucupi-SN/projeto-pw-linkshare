@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./styles/general.css" />
+        <link rel="stylesheet" href="./styles/login.css" />
+        <link rel="stylesheet" href="./styles/create_playlist.css" />
+        <link rel="stylesheet" href="./styles/add_music.css" />
+        <title>LinkShare</title>
+    </head>
+    <body>
+        <main>
+            <h1>Adicionar música</h1>
+            <form>
+                <div class="campo">
+                    <label for="title">Título da música</label>
+                    <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        placeholder="Digite aqui o título da música"
+                    />
+                </div>
+
+                <div class="campo">
+                    <label for="artist">Artista</label>
+                    <input
+                        type="text"
+                        name="artist"
+                        id="artist"
+                        placeholder="Digite o nome do artista"
+                    />
+                </div>
+
+                <div class="campo duration">
+                    <label for="duration1">Duração</label>
+                    <div>
+                        <div>
+                            <input
+                                type="number"
+                                name="duration1"
+                                id="duration1"
+                            />
+                            <p>min</p>
+                        </div>
+                        <div>
+                            <input
+                                type="number"
+                                name="duration2"
+                                id="duration2"
+                            />
+                            <p>seg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="musics-styles">Estilo musical</label>
+                    <div>
+                        <select name="musics-styles" id="musics-styles">
+                            <option value="1">Rock</option>
+                            <option value="2">Blues</option>
+                            <option value="3">Jazz</option>
+                            <option value="4">Pop</option>
+                            <option value="5">Country</option>
+                            <option value="6">Reage</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <a href="./index.html" class="btn-outline btn-links">
+                        Cancelar
+                    </a>
+                    <button class="btn" type="submit">Criar</button>
+                </div>
+            </form>
+        </main>
+    </body>
+</html>
