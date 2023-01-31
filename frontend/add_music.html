@@ -40,6 +40,8 @@
                         <div>
                             <input
                                 type="number"
+                                min="0"
+                                max="59"
                                 name="duration1"
                                 id="duration1"
                             />
@@ -48,6 +50,8 @@
                         <div>
                             <input
                                 type="number"
+                                min="0"
+                                max="59"
                                 name="duration2"
                                 id="duration2"
                             />
@@ -60,6 +64,9 @@
                     <label for="musics-styles">Estilo musical</label>
                     <div>
                         <select name="musics-styles" id="musics-styles">
+                            <option disabled selected>
+                                Escolher estilo
+                            </option>
                             <option value="1">Rock</option>
                             <option value="2">Blues</option>
                             <option value="3">Jazz</option>
@@ -74,7 +81,7 @@
                     <a href="./index.html" class="btn-outline btn-links">
                         Cancelar
                     </a>
-                    <button class="btn" type="submit">Criar</button>
+                    <button class="btn" type="submit">Adicionar</button>
                 </div>
             </form>
         </main>

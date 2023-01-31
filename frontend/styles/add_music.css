@@ -20,3 +20,14 @@
     align-items: center;
     gap: 8px;
 }
+
+select {
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 14px;
+    background-color: #7e4c89;
+    color: var(--white);
+    border: 1px solid var(--white);
+    min-width: 250px;
+    padding: 8px 16px;
+}
