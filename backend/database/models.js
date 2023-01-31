@@ -22,7 +22,7 @@ const Playlist = database.define(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    private: {
+    isPrivate: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,

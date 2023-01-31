@@ -1,12 +1,12 @@
 const { profileMapper } = require("./profileMapper.js");
 
-function playlistMapper({ id, name, image, cratedAt, private, Profile }) {
+function playlistMapper({ id, name, image, cratedAt, isPrivate, Profile }) {
   return {
     id,
     name,
     image,
     cratedAt,
-    private,
+    isPrivate,
     profile: profileMapper(Profile),
   };
 }
