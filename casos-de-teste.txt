@@ -1,0 +1,49 @@
+Cenário 1: Registrar novo perfil usuário
+	Casos de teste associados:
+		Cadastro de um perfil com sucesso
+		Cadastro de um perfil com informações obrigatórias faltando
+		Cadastro de um perfil com e-mail já existente na base de dados
+		
+Cenário 2: Login de usuário
+	Casos de teste associados:
+		Login de um usuário com sucesso
+		Login de um usuário com informações obrigatórias faltando
+		Login de um usuário com senha errada
+		
+Cenário 4: Deslogar de um usuário
+	Casos de teste associados:
+		Deslogar de um usuário com sucesso
+		
+Cenário 4: Cadastrar nova playlist
+	Casos de teste associados:
+		Cadastrar nova playlist pública com sucesso
+		Cadastrar nova playlist privada com sucesso
+		Cadastrar nova playlist com informações obrigatórias faltando
+		
+Cenário 5: Alterar os dados de uma playlist existente
+	Casos de teste associados:
+		Alterar os dados de uma playlist com sucesso
+		Alterar os dados de uma playlist com informações obrigatórias faltando
+		
+Cenário 6: Adicionar nova música a uma playlist existente
+	Casos de teste associados:
+		Cadastrar nova música a uma playlist com sucesso
+		Cadastrar nova música a uma playlist com informações obrigatórias faltando
+		
+Cenário 7: Alterar os dados de uma música existente
+	Casos de teste associados:
+		Alterar os dados de uma música com sucesso
+		Alterar os dados de uma música com informações obrigatórias faltando
+
+Cenário 8: Acessar perfil do usuário logado
+	Casos de teste associados:
+		Acessar perfil do usuário logado com sucesso
+		
+Cenário 9: Acessar página inicial
+	Casos de teste associados:
+		Acessar página inicial com sucesso
+		
+Cenário 10: Acessar uma playlist
+	Casos de teste associados:
+		Acessar uma playlist pública com sucesso
+		Acessar uma playlist privada com sucesso
