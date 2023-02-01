@@ -95,6 +95,63 @@ main {
     letter-spacing: -0.011em;
 }
 
+header a {
+    text-decoration: none;
+}
+
+header ul {
+    display: inline-flex;
+    list-style: none;
+}
+
+header ul li {
+    background-color: var(--purple);
+}
+header ul li span {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    background-color: var(--white);
+    width: 150px;
+    height: 48px;
+}
+.sub-menu-1 {
+    display: none;
+    right: 80px;
+}
+
+header ul li:hover .sub-menu-1 {
+    display: block;
+    position: absolute;
+}
+
+header ul li:hover .sub-menu-1 ul {
+    display: block;
+}
+
+header ul li:hover .sub-menu-1 ul li {
+    width: 150px;
+    padding: 10px;
+    text-align: center;
+    transition: 300ms;
+    color: var(--white);
+}
+
+header ul li:hover .sub-menu-1 ul li a {
+    text-align: center;
+    transition: 300ms;
+    color: var(--white);
+}
+
+header ul li:hover .sub-menu-1 ul li:hover a {
+    color: var(--purple);
+}
+
+header ul li:hover .sub-menu-1 ul li:hover {
+    padding: 20px;
+    background-color: var(--white);
+    color: var(--purple);
+}
 /* 
 <div class="header-playlist"></div>
 <div class="songs"></div>
