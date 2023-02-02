@@ -1,10 +1,9 @@
 const express = require("express");
 const database = require("./database/config.js");
-const { Playlist, Profile, Music } = require("./database/models.js");
+const { Profile, Music } = require("./database/models.js");
 const { musicMapper } = require("./mappers/musicMapper.js");
-const { playlistMapper } = require("./mappers/playlistMapper.js");
 const { profileMapper } = require("./mappers/profileMapper.js");
-const playlistsController = require("./controllers/playlistsController.js");
+const routes = require("./routes");
 
 (async () => {
   try {
@@ -33,64 +32,7 @@ const port = 3000;
 
 app.use(express.json());
 
-// endpoints de Playlist
-
-//endpoint feed
-app.get("/playlists/feed", playlistsController.getPlaylistsFeed);
-
-//falta endpoint que retorna TODAS as playlists do usuario atual, filtro de privado ou publico sera realizado no front
-
-app.get("/playlists/:id", async (req, res) => {
-  let id = req.params.id;
-  let playlist = await Playlist.findByPk(id, {
-    include: { all: true, nested: true },
-  });
-  if (playlist === null) {
-    res.status(404);
-    return res.json({ message: "No record with the given id" });
-  }
-
-  const mappedPlaylist = playlistMapper(playlist);
-
-  return res.json(mappedPlaylist);
-});
-
-app.post("/playlists", async (req, res) => {
-  let body = req.body;
-  let newPlaylist = await Playlist.create(body);
-  res.status(201);
-  return res.json(newPlaylist);
-});
-
-app.patch("/playlists/:id", async (req, res) => {
-  let id = req.params.id;
-  let body = req.body;
-  let playlist = await Playlist.findByPk(id, {
-    include: { all: true, nested: true },
-  });
-  if (playlist === null) {
-    res.status(404);
-    return res.json({ message: "No record with the given id" });
-  }
-  await playlist.update(body);
-
-  const mappedPlaylist = playlistMapper(playlist);
-
-  return res.json(mappedPlaylist);
-});
-
-app.delete("/playlists/:id", async (req, res) => {
-  let id = req.params.id;
-  let playlist = await Playlist.findByPk(id, {
-    include: { all: true, nested: true },
-  });
-  if (playlist === null) {
-    res.status(404);
-    return res.json({ message: "No record with the given id" });
-  }
-  await playlist.destroy();
-  return res.json({ message: "Record successfuly deleted" });
-});
+app.use(routes);
 
 // endpoints de Profile
 
@@ -226,6 +168,14 @@ app.delete("/musics/:id", async (req, res) => {
   await music.destroy();
 
   return res.json({ message: "Record successfuly deleted" });
+});
+
+app.use((req, res, next) => {
+  res.status(404).send("Content not found");
+});
+
+app.use((err, req, res, next) => {
+  res.status(500).send("Internal server error");
 });
 
 app.listen(port, () => {

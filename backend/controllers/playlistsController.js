@@ -17,4 +17,91 @@ const getPlaylistsFeed = async (req, res) => {
   return res.json(mappedPlaylists);
 };
 
-module.exports = { getPlaylistsFeed };
+const getPlaylistById = async (req, res) => {
+  const { id } = req.params;
+
+  const playlist = await Playlist.findByPk(id, {
+    include: { all: true, nested: true },
+  });
+
+  if (playlist === null) {
+    return res.status(404).json({ message: "No record with the given id" });
+  }
+
+  const mappedPlaylist = playlistMapper(playlist);
+
+  return res.json(mappedPlaylist);
+};
+
+const createPlaylist = async (req, res) => {
+  const { body } = req;
+
+  if (
+    body.name === undefined ||
+    body.name === "" ||
+    body.image === undefined ||
+    body.image === "" ||
+    body.profileId === undefined
+  ) {
+    return res
+      .status(400)
+      .json({
+        message: "Mandatory fields must be informed and cannot be empty",
+      });
+  }
+
+  const newPlaylist = await Playlist.create(body);
+
+  const mappedPlaylist = playlistMapper(newPlaylist);
+
+  return res.status(201).json(mappedPlaylist);
+};
+
+const updatePlaylist = async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+
+  if (body.name === "" || body.image === "") {
+    return res
+      .status(400)
+      .json({ message: "Mandatory fields cannot be empty" });
+  }
+
+  const playlist = await Playlist.findByPk(id, {
+    include: { all: true, nested: true },
+  });
+
+  if (playlist === null) {
+    return res.status(404).json({ message: "No record with the given id" });
+  }
+
+  const updatedPlaylist = await playlist.update(body);
+
+  const mappedPlaylist = playlistMapper(updatedPlaylist);
+
+  return res.json(mappedPlaylist);
+};
+
+const deletePlaylist = async (req, res) => {
+  const { id } = req.params;
+
+  const playlist = await Playlist.findByPk(id, {
+    include: { all: true, nested: true },
+  });
+
+  if (playlist === null) {
+    return res.status(404).json({ message: "No record with the given id" });
+  }
+
+  await playlist.destroy();
+
+  return res.json({ message: "Record successfuly deleted" });
+};
+
+module.exports = {
+  getPlaylistsFeed,
+  getPlaylistById,
+  createPlaylist,
+  updatePlaylist,
+  deletePlaylist,
+};
