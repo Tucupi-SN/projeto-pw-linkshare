@@ -7,7 +7,7 @@ const playlistMock = {
   id: 1,
   name: "Melhores",
   image: "image.png",
-  cratedAt: new Date(),
+  createdAt: new Date(),
   isPrivate: true,
   profile: {
     id: 1,

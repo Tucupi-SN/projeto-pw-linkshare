@@ -43,18 +43,14 @@ const createPlaylist = async (req, res) => {
     body.image === "" ||
     body.profileId === undefined
   ) {
-    return res
-      .status(400)
-      .json({
-        message: "Mandatory fields must be informed and cannot be empty",
-      });
+    return res.status(400).json({
+      message: "Mandatory fields must be informed and cannot be empty",
+    });
   }
 
   const newPlaylist = await Playlist.create(body);
 
-  const mappedPlaylist = playlistMapper(newPlaylist);
-
-  return res.status(201).json(mappedPlaylist);
+  return res.status(201).json(newPlaylist);
 };
 
 const updatePlaylist = async (req, res) => {

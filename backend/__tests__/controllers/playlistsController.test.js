@@ -1,5 +1,5 @@
 import playlistsController from "../../controllers/playlistsController.js";
-import Models, { Playlist } from "../../database/models.js";
+import Models from "../../database/models.js";
 
 jest.mock("../../database/models.js");
 
@@ -12,7 +12,7 @@ const playlistsMock = [
     id: 1,
     name: "Melhores",
     image: "image.png",
-    cratedAt: new Date(2023, 1, 1),
+    createdAt: new Date(2023, 1, 1),
     isPrivate: true,
     Profile: {
       id: 1,
@@ -27,7 +27,7 @@ const playlistsMock = [
     id: 2,
     name: "Melhores2",
     image: "image2.png",
-    cratedAt: new Date(2023, 1, 1),
+    createdAt: new Date(2023, 1, 1),
     isPrivate: false,
     Profile: {
       id: 1,
@@ -48,7 +48,7 @@ describe("getPlaylistsFeed", () => {
         id: 2,
         name: "Melhores2",
         image: "image2.png",
-        cratedAt: new Date(2023, 1, 1),
+        createdAt: new Date(2023, 1, 1),
         isPrivate: false,
         profile: {
           id: 1,
@@ -117,7 +117,7 @@ describe("getPlaylistsById", () => {
       id: 2,
       name: "Melhores2",
       image: "image2.png",
-      cratedAt: new Date(2023, 1, 1),
+      createdAt: new Date(2023, 1, 1),
       isPrivate: false,
       profile: {
         id: 1,
@@ -176,21 +176,23 @@ describe("getPlaylistsById", () => {
 describe("createPlaylist", () => {
   test("Deve cadastrar nova playlist pública com sucesso", async () => {
     // Arrange
-    const playlistCreatedMock = { ...playlistsMock[1] };
+    const playlistMock = { ...playlistsMock[1] };
+    const playlistCreatedMock = {
+      id: playlistMock.id,
+      name: playlistMock.name,
+      image: playlistMock.image,
+      createdAt: playlistMock.createdAt,
+      isPrivate: playlistMock.isPrivate,
+      profileId: playlistMock.Profile.id,
+    };
 
     const expectedPlaylist = {
       id: 2,
       name: "Melhores2",
       image: "image2.png",
-      cratedAt: new Date(2023, 1, 1),
+      createdAt: new Date(2023, 1, 1),
       isPrivate: false,
-      profile: {
-        id: 1,
-        name: "Diogo",
-        email: "diogo@gmail.com",
-        profilePicture: "image.png",
-        createdAt: new Date(2023, 1, 1),
-      },
+      profileId: 1,
     };
 
     const mockBody = { ...playlistsMock[1] };
@@ -225,21 +227,23 @@ describe("createPlaylist", () => {
 
   test("Deve cadastrar nova playlist privada com sucesso", async () => {
     // Arrange
-    const playlistCreatedMock = { ...playlistsMock[0] };
+    const playlistMock = { ...playlistsMock[0] };
+    const playlistCreatedMock = {
+      id: playlistMock.id,
+      name: playlistMock.name,
+      image: playlistMock.image,
+      createdAt: playlistMock.createdAt,
+      isPrivate: playlistMock.isPrivate,
+      profileId: playlistMock.Profile.id,
+    };
 
     const expectedPlaylist = {
       id: 1,
       name: "Melhores",
       image: "image.png",
-      cratedAt: new Date(2023, 1, 1),
+      createdAt: new Date(2023, 1, 1),
       isPrivate: true,
-      profile: {
-        id: 1,
-        name: "Diogo",
-        email: "diogo@gmail.com",
-        profilePicture: "image.png",
-        createdAt: new Date(2023, 1, 1),
-      },
+      profileId: 1,
     };
 
     const mockBody = { ...playlistsMock[0] };
@@ -315,7 +319,7 @@ describe("updatePlaylist", () => {
       id: 2,
       name: "Melhores2 Mudada",
       image: "image2.png",
-      cratedAt: new Date(2023, 1, 1),
+      createdAt: new Date(2023, 1, 1),
       isPrivate: false,
       profile: {
         id: 1,

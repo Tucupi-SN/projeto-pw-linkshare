@@ -22,7 +22,7 @@ describe("playlistMapper", () => {
       id: 1,
       name: "Melhores",
       image: "image.png",
-      cratedAt: new Date(),
+      createdAt: new Date(),
       isPrivate: true,
       profile: profileMock,
     };
@@ -31,7 +31,7 @@ describe("playlistMapper", () => {
       id: 1,
       name: "Melhores",
       image: "image.png",
-      cratedAt: new Date(),
+      createdAt: new Date(),
       isPrivate: true,
       Profile: {
         ...profileMock,

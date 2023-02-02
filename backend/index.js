@@ -16,7 +16,7 @@ const routes = require("./routes");
 
 (async () => {
   try {
-    // await database.sync({ force: true });
+    // await database.sync({ force: true }); usar se alterar models
     await database.sync(); // sem {force: true} pq senao apaga as tabelas e os dados toda vez
     console.log("Models criados com sucesso.");
   } catch (error) {
@@ -98,75 +98,6 @@ app.delete("/profiles/:id", async (req, res) => {
     return res.json({ message: "No record with the given id" });
   }
   await profile.destroy();
-  return res.json({ message: "Record successfuly deleted" });
-});
-
-app.get("/musics", async (req, res) => {
-  const musics = await Music.findAll({
-    include: { all: true, nested: true },
-  });
-
-  const mappedMusics = musics.map((music) => musicMapper(music));
-
-  return res.json(mappedMusics);
-});
-
-app.get("/musics/:id", async (req, res) => {
-  const { id } = req.params;
-
-  const music = await Music.findByPk(id, {
-    include: { all: true, nested: true },
-  });
-
-  if (music === null) {
-    return res.status(404).json({ message: "No record with the given id" });
-  }
-
-  const mappedMusic = musicMapper(music);
-
-  return res.json(mappedMusic);
-});
-
-app.post("/musics", async (req, res) => {
-  const { body } = req;
-
-  const newMusic = await Music.create(body);
-
-  return res.status(201).json(newMusic);
-});
-
-app.patch("/musics/:id", async (req, res) => {
-  const { id } = req.params;
-  const { body } = req;
-
-  const music = await Music.findByPk(id, {
-    include: { all: true, nested: true },
-  });
-
-  if (music === null) {
-    return res.status(404).json({ message: "No record with the given id" });
-  }
-
-  await music.update(body);
-
-  const mappedMusic = musicMapper(music);
-
-  return res.json(mappedMusic);
-});
-
-app.delete("/musics/:id", async (req, res) => {
-  const { id } = req.params;
-
-  const music = await Music.findByPk(id, {
-    include: { all: true, nested: true },
-  });
-
-  if (music === null) {
-    return res.status(404).json({ message: "No record with the given id" });
-  }
-
-  await music.destroy();
-
   return res.json({ message: "Record successfuly deleted" });
 });
 
