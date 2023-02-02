@@ -1,7 +1,7 @@
-import { playlistMapper } from "../playlistMapper.js";
-import ProfileMapper from "../profileMapper.js";
+import { playlistMapper } from "../../mappers/playlistMapper.js";
+import ProfileMapper from "../../mappers/profileMapper.js";
 
-jest.mock("../profileMapper.js");
+jest.mock("../../mappers/profileMapper.js");
 
 const profileMock = {
   id: 1,

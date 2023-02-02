@@ -1,4 +1,4 @@
-import { profileMapper } from "../profileMapper.js";
+import { profileMapper } from "../../mappers/profileMapper.js";
 
 describe("profileMapper", () => {
   test("Deve ser possível mappear um objeto de 'perfil' corretamente", () => {

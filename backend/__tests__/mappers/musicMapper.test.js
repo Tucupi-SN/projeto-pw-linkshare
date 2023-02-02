@@ -1,7 +1,7 @@
-import { musicMapper } from "../musicMapper.js";
-import PlaylistMapper from "../playlistMapper.js";
+import { musicMapper } from "../../mappers/musicMapper.js";
+import PlaylistMapper from "../../mappers/playlistMapper.js";
 
-jest.mock("../playlistMapper.js");
+jest.mock("../../mappers/playlistMapper.js");
 
 const playlistMock = {
   id: 1,

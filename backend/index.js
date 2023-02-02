@@ -3,7 +3,8 @@ const database = require("./database/config.js");
 const { Playlist, Profile, Music } = require("./database/models.js");
 const { musicMapper } = require("./mappers/musicMapper.js");
 const { playlistMapper } = require("./mappers/playlistMapper.js");
-const { profileMapper } = require("./mappers/ProfileMapper.js");
+const { profileMapper } = require("./mappers/profileMapper.js");
+const playlistsController = require("./controllers/playlistsController.js");
 
 (async () => {
   try {
@@ -34,15 +35,10 @@ app.use(express.json());
 
 // endpoints de Playlist
 
-app.get("/playlists", async (req, res) => {
-  let playlists = await Playlist.findAll({
-    include: { all: true, nested: true },
-  });
+//endpoint feed
+app.get("/playlists/feed", playlistsController.getPlaylistsFeed);
 
-  const mappedPlaylists = playlists.map((playlist) => playlistMapper(playlist));
-
-  return res.json(mappedPlaylists);
-});
+//falta endpoint que retorna TODAS as playlists do usuario atual, filtro de privado ou publico sera realizado no front
 
 app.get("/playlists/:id", async (req, res) => {
   let id = req.params.id;

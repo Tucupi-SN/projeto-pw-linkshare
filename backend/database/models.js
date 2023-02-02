@@ -46,6 +46,7 @@ const Profile = database.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     profilePicture: {
       type: DataTypes.STRING,
