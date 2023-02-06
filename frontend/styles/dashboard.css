@@ -99,60 +99,70 @@ header a {
     text-decoration: none;
 }
 
-header ul {
-    display: inline-flex;
-    list-style: none;
+/* submenu paylists*/
+.menu {
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-header ul li {
+.menu ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu ul li {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 200px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    float: left;
+    font-family: "inter";
+    font-size: 16px;
+    position: relative;
+    cursor: pointer;
+}
+
+.menu ul li:hover {
     background-color: var(--purple);
 }
-header ul li span {
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    background-color: var(--white);
-    width: 150px;
-    height: 48px;
-}
-.sub-menu-1 {
+
+.menu ul ul {
     display: none;
-    right: 80px;
+    margin: 0;
 }
 
-header ul li:hover .sub-menu-1 {
-    display: block;
-    position: absolute;
-}
-
-header ul li:hover .sub-menu-1 ul {
-    display: block;
-}
-
-header ul li:hover .sub-menu-1 ul li {
-    width: 150px;
-    padding: 10px;
-    text-align: center;
-    transition: 300ms;
-    color: var(--white);
-}
-
-header ul li:hover .sub-menu-1 ul li a {
-    text-align: center;
-    transition: 300ms;
-    color: var(--white);
-}
-
-header ul li:hover .sub-menu-1 ul li:hover a {
-    color: var(--purple);
-}
-
-header ul li:hover .sub-menu-1 ul li:hover {
-    padding: 20px;
+.menu ul ul li {
     background-color: var(--white);
     color: var(--purple);
+    height: 36px;
+    line-height: 36px;
+    transition: 300ms;
 }
-/* 
-<div class="header-playlist"></div>
-<div class="songs"></div>
-<div class="info"></div> */
+
+.menu ul ul li:hover {
+    background-color: var(--purple);
+    color: var(--white);
+    height: 48px;
+    line-height: 48px;
+    transition: 300ms;
+}
+
+.menu ul li:hover > ul {
+    display: block;
+}
+
+.menu ul li span {
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
