@@ -7,7 +7,6 @@ const profilesController = require("../controllers/profilesController.js");
 
 // endpoints de Playlist
 
-router.get("/playlists", playlistsController.getAllPlaylists);
 router.get("/playlists/public", playlistsController.getPlaylistsFeed);
 router.post("/playlists", playlistsController.createPlaylist);
 router.get("/playlists/:id", playlistsController.getPlaylistById);
@@ -17,7 +16,6 @@ router.delete("/playlists/:id", playlistsController.deletePlaylist);
 
 // endpoints de Profile
 
-router.get("/profiles", profilesController.getAllProfiles);
 router.get("/profiles/:id", profilesController.getProfileById);
 router.post("/profiles", profilesController.createProfile);
 router.patch("/profiles/:id", profilesController.updateProfile);
@@ -25,7 +23,6 @@ router.delete("/profiles/:id", profilesController.deleteProfile);
 
 // endpoints de Music
 
-router.get("/musics", musicsController.getAllMusics);
 router.get("/musics/:id", musicsController.getMusicById);
 router.post("/musics", musicsController.createMusic);
 router.patch("/musics/:id", musicsController.updateMusic);

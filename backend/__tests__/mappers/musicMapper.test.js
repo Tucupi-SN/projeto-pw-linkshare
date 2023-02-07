@@ -30,7 +30,7 @@ describe("musicMapper", () => {
       title: "R U Mine?",
       artist: "Arctic Monkeys",
       duration: 223,
-      musciStyle: "Rock",
+      musicStyle: "Rock",
       url: "https://www.youtube.com/watch?v=VQH8ZTgna3Q",
       createdAt: new Date(),
       playlist: playlistMock,
@@ -41,7 +41,7 @@ describe("musicMapper", () => {
       title: "R U Mine?",
       artist: "Arctic Monkeys",
       duration: 223,
-      musciStyle: "Rock",
+      musicStyle: "Rock",
       url: "https://www.youtube.com/watch?v=VQH8ZTgna3Q",
       createdAt: new Date(),
       Playlist: {
