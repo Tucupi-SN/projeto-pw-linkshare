@@ -1,10 +1,7 @@
 const express = require("express");
 
 const database = require("./database/config.js");
-
-const playlistsController = require("./controllers/playlistsController.js");
-const musicsController = require("./controllers/musicsController.js");
-const profilesController = require("./controllers/profilesController.js");
+const router = require("./routes/index.js");
 
 (async () => {
 	try {
@@ -16,12 +13,11 @@ const profilesController = require("./controllers/profilesController.js");
 			error
 		);
 	}
-})(); // define e executa na mesma hora
+})();
 
 (async () => {
 	try {
-		// await database.sync({ force: true });
-		await database.sync(); // sem {force: true} pq senao apaga as tabelas e os dados toda vez
+		await database.sync();
 		console.log("Models criados com sucesso.");
 	} catch (error) {
 		console.log(
@@ -29,38 +25,13 @@ const profilesController = require("./controllers/profilesController.js");
 			error
 		);
 	}
-})(); // define e executa na mesma hora
+})();
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-
-// endpoints de Playlist
-
-app.get("/playlists", playlistsController.getAllPlaylists);
-app.get("/playlists/feed", playlistsController.getPlaylistsFeed);
-app.post("/playlists", playlistsController.createPlaylist);
-app.get("/playlists/:id", playlistsController.getPlaylistById);
-app.get("/playlists/:id/musics", musicsController.getMusicsByPlaylist);
-app.patch("/playlists/:id", playlistsController.updatePlaylist);
-app.delete("/playlists/:id", playlistsController.deletePlaylist);
-
-// endpoints de Profile
-
-app.get("/profiles", profilesController.getAllProfiles);
-app.get("/profiles/:id", profilesController.getProfileById);
-app.post("/profiles", profilesController.createProfile);
-app.patch("/profiles/:id", profilesController.updateProfile);
-app.delete("/profiles/:id", profilesController.deleteProfile);
-
-// endpoints de Music
-
-app.get("/musics", musicsController.getAllMusics);
-app.get("/musics/:id", musicsController.getMusicById);
-app.post("/musics", musicsController.createMusic);
-app.patch("/musics/:id", musicsController.updateMusic);
-app.delete("/musics/:id", musicsController.deleteMusic);
+app.use(router);
 
 app.listen(port, () => {
 	console.log(`Aplicação rodando na porta ${port}`);
