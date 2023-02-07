@@ -1,10 +1,10 @@
 const express = require("express");
+
 const database = require("./database/config.js");
-const { Playlist, Profile, Music } = require("./database/models.js");
-const { musicMapper } = require("./mappers/musicMapper.js");
-const { playlistMapper } = require("./mappers/playlistMapper.js");
-const { profileMapper } = require("./mappers/profileMapper.js");
+
 const playlistsController = require("./controllers/playlistsController.js");
+const musicsController = require("./controllers/musicsController.js");
+const profilesController = require("./controllers/profilesController.js");
 
 (async () => {
 	try {
@@ -38,198 +38,29 @@ app.use(express.json());
 
 // endpoints de Playlist
 
-//endpoint feed
+app.get("/playlists", playlistsController.getAllPlaylists);
 app.get("/playlists/feed", playlistsController.getPlaylistsFeed);
-
-//falta endpoint que retorna TODAS as playlists do usuario atual, filtro de privado ou publico sera realizado no front
-
-app.get("/playlists/:id", async (req, res) => {
-	let id = req.params.id;
-	let playlist = await Playlist.findByPk(id, {
-		include: { all: true, nested: true },
-	});
-	if (playlist === null) {
-		res.status(404);
-		return res.json({ message: "No record with the given id" });
-	}
-
-	const mappedPlaylist = playlistMapper(playlist);
-
-	return res.json(mappedPlaylist);
-});
-
-app.post("/playlists", async (req, res) => {
-	let body = req.body;
-	let newPlaylist = await Playlist.create(body);
-	res.status(201);
-	return res.json(newPlaylist);
-});
-
-app.patch("/playlists/:id", async (req, res) => {
-	let id = req.params.id;
-	let body = req.body;
-	let playlist = await Playlist.findByPk(id, {
-		include: { all: true, nested: true },
-	});
-	if (playlist === null) {
-		res.status(404);
-		return res.json({ message: "No record with the given id" });
-	}
-	await playlist.update(body);
-
-	const mappedPlaylist = playlistMapper(playlist);
-
-	return res.json(mappedPlaylist);
-});
-
-app.delete("/playlists/:id", async (req, res) => {
-	let id = req.params.id;
-	let playlist = await Playlist.findByPk(id, {
-		include: { all: true, nested: true },
-	});
-	if (playlist === null) {
-		res.status(404);
-		return res.json({ message: "No record with the given id" });
-	}
-	await playlist.destroy();
-	return res.json({ message: "Record successfuly deleted" });
-});
+app.post("/playlists", playlistsController.createPlaylist);
+app.get("/playlists/:id", playlistsController.getPlaylistById);
+app.get("/playlists/:id/musics", musicsController.getMusicsByPlaylist);
+app.patch("/playlists/:id", playlistsController.updatePlaylist);
+app.delete("/playlists/:id", playlistsController.deletePlaylist);
 
 // endpoints de Profile
 
-app.get("/profiles", async (req, res) => {
-	let profiles = await Profile.findAll({
-		include: { all: true, nested: true },
-	});
+app.get("/profiles", profilesController.getAllProfiles);
+app.get("/profiles/:id", profilesController.getProfileById);
+app.post("/profiles", profilesController.createProfile);
+app.patch("/profiles/:id", profilesController.updateProfile);
+app.delete("/profiles/:id", profilesController.deleteProfile);
 
-	const mappedProfiles = profiles.map((profile) => profileMapper(profile));
+// endpoints de Music
 
-	return res.json(mappedProfiles);
-});
-
-app.get("/profiles/:id", async (req, res) => {
-	let id = req.params.id;
-	let profile = await Profile.findByPk(id, {
-		include: { all: true, nested: true },
-	});
-	if (profile === null) {
-		res.status(404);
-		return res.json({ message: "No record with the given id" });
-	}
-
-	const mappedProfile = profileMapper(profile);
-
-	return res.json(mappedProfile);
-});
-
-app.post("/profiles", async (req, res) => {
-	let body = req.body;
-	let newProfile = await Profile.create(body);
-
-	const mappedProfile = profileMapper(newProfile);
-
-	res.status(201);
-	return res.json(mappedProfile);
-});
-
-app.patch("/profiles/:id", async (req, res) => {
-	let id = req.params.id;
-	let body = req.body;
-	let profile = await Profile.findByPk(id, {
-		include: { all: true, nested: true },
-	});
-	if (profile === null) {
-		res.status(404);
-		return res.json({ message: "No record with the given id" });
-	}
-	await profile.update(body);
-
-	const mappedProfile = profileMapper(profile);
-
-	return res.json(mappedProfile);
-});
-
-app.delete("/profiles/:id", async (req, res) => {
-	let id = req.params.id;
-	let profile = await Profile.findByPk(id, {
-		include: { all: true, nested: true },
-	});
-	if (profile === null) {
-		res.status(404);
-		return res.json({ message: "No record with the given id" });
-	}
-	await profile.destroy();
-	return res.json({ message: "Record successfuly deleted" });
-});
-
-app.get("/musics", async (req, res) => {
-	const musics = await Music.findAll({
-		include: { all: true, nested: true },
-	});
-
-	const mappedMusics = musics.map((music) => musicMapper(music));
-
-	return res.json(mappedMusics);
-});
-
-app.get("/musics/:id", async (req, res) => {
-	const { id } = req.params;
-
-	const music = await Music.findByPk(id, {
-		include: { all: true, nested: true },
-	});
-
-	if (music === null) {
-		return res.status(404).json({ message: "No record with the given id" });
-	}
-
-	const mappedMusic = musicMapper(music);
-
-	return res.json(mappedMusic);
-});
-
-app.post("/musics", async (req, res) => {
-	const { body } = req;
-
-	const newMusic = await Music.create(body);
-
-	return res.status(201).json(newMusic);
-});
-
-app.patch("/musics/:id", async (req, res) => {
-	const { id } = req.params;
-	const { body } = req;
-
-	const music = await Music.findByPk(id, {
-		include: { all: true, nested: true },
-	});
-
-	if (music === null) {
-		return res.status(404).json({ message: "No record with the given id" });
-	}
-
-	await music.update(body);
-
-	const mappedMusic = musicMapper(music);
-
-	return res.json(mappedMusic);
-});
-
-app.delete("/musics/:id", async (req, res) => {
-	const { id } = req.params;
-
-	const music = await Music.findByPk(id, {
-		include: { all: true, nested: true },
-	});
-
-	if (music === null) {
-		return res.status(404).json({ message: "No record with the given id" });
-	}
-
-	await music.destroy();
-
-	return res.json({ message: "Record successfuly deleted" });
-});
+app.get("/musics", musicsController.getAllMusics);
+app.get("/musics/:id", musicsController.getMusicById);
+app.post("/musics", musicsController.createMusic);
+app.patch("/musics/:id", musicsController.updateMusic);
+app.delete("/musics/:id", musicsController.deleteMusic);
 
 app.listen(port, () => {
 	console.log(`Aplicação rodando na porta ${port}`);
