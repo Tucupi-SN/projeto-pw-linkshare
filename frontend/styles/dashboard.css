@@ -127,6 +127,7 @@ header a {
     font-size: 16px;
     position: relative;
     cursor: pointer;
+    transition: 300ms;
 }
 
 .menu ul li:hover {
@@ -151,7 +152,6 @@ header a {
     color: var(--white);
     height: 48px;
     line-height: 48px;
-    transition: 300ms;
 }
 
 .menu ul li:hover > ul {
