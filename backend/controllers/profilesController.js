@@ -36,6 +36,8 @@ const createProfile = async (req, res) => {
 	}
 
 	const newProfile = await Profile.create(body);
+	newProfile.setPassword(body.password);
+	await newProfile.save();
 
 	return res.status(201).json(newProfile);
 };
