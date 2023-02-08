@@ -1,0 +1,171 @@
+header {
+    justify-content: space-between;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    padding: 138px 0 48px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+}
+
+.btn-dashboard {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    padding: 12px 24px;
+    gap: 16px;
+}
+
+.playlist {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 80%;
+    max-width: 1200px;
+    padding: 24px 32px;
+    transition: 300ms;
+}
+
+.playlist:hover {
+    transition: 300ms;
+    filter: drop-shadow(0px 0px 32px rgba(255, 255, 255, 0.2));
+}
+
+.header-playlist {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    gap: 16px;
+}
+
+.header-playlist div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    white-space: nowrap;
+    padding-right: 32px;
+}
+
+.header-playlist div:nth-child(2) p:nth-child(1) {
+    font-weight: 700;
+}
+
+.songs {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 32px;
+    border-left: 1px solid var(--white);
+    border-right: 1px solid var(--white);
+}
+
+.songs p {
+    font-size: 12px;
+    line-height: 150%;
+    letter-spacing: -0.011em;
+}
+
+.info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    padding-left: 24px;
+    gap: 4px;
+}
+
+.info p {
+    white-space: nowrap;
+    text-align: end;
+    width: 100%;
+    font-size: 10px;
+    line-height: 150%;
+    letter-spacing: -0.011em;
+}
+
+header a {
+    text-decoration: none;
+}
+
+/* submenu paylists*/
+.menu {
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu ul li {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 200px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    float: left;
+    font-family: "inter";
+    font-size: 16px;
+    position: relative;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.menu ul li:hover {
+    background-color: var(--purple);
+}
+
+.menu ul ul {
+    display: none;
+    margin: 0;
+}
+
+.menu ul ul li {
+    background-color: var(--white);
+    color: var(--purple);
+    height: 36px;
+    line-height: 36px;
+    transition: 300ms;
+}
+
+.menu ul ul li:hover {
+    background-color: var(--purple);
+    color: var(--white);
+    height: 48px;
+    line-height: 48px;
+}
+
+.menu ul li:hover > ul {
+    display: block;
+}
+
+.menu ul li span {
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}

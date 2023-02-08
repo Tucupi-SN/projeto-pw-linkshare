@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles/general.css" />
+		<link rel="stylesheet" href="./styles/dashboard.css" />
+		<title>LinkShare</title>
+	</head>
+	<body>
+		<header>
+			<div>
+				<img src="./assets/images/logo.svg" alt="" />
+			</div>
+			<div class="menu">
+				<ul>
+					<li>
+						<span>Olá, Lyzzandro!</span>
+						<ul>
+							<li>Minha dashboard</li>
+							<li>Editar</li>
+							<li>Sair</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</header>
+
+		<main>
+			{% for playlist in playlists %}
+			<div class="playlist">
+				<div class="header-playlist">
+					<div>
+						<img src="{{ playlist.image }}" alt="" />
+					</div>
+					<div>
+						<p>{{ playlist.name }}</p>
+						<p>{{ playlist.numberOfMusics }}</p>
+					</div>
+				</div>
+				<div class="songs">
+					<p>{{ playlist.musicNames }}</p>
+				</div>
+				<div class="info">
+					<p>
+						{{ "Público" if not playlist.isPrivate else "Privado" }}
+					</p>
+					<p>Criado em {{ playlist.createdAt }}</p>
+				</div>
+			</div>
+			{% endfor %}
+		</main>
+	</body>
+</html>
