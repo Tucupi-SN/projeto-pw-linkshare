@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/styles/general.css" />
+		<link rel="stylesheet" href="/styles/login.css" />
+		<title>LinkShare</title>
+	</head>
+	<body>
+		<main>
+			<h1>Editar Perfil</h1>
+			<form method="POST" , action="#">
+				<div class="campo">
+					<label for="name">Nome</label>
+					<input
+						type="text"
+						name="name"
+						id="name"
+						placeholder="Digite aqui o seu email"
+						value="{{ currentProfile.name }}"
+					/>
+				</div>
+				<div class="campo">
+					<label for="email">E-mail</label>
+					<input
+						type="text"
+						name="email"
+						id="email"
+						placeholder="Digite aqui o seu email"
+						value="{{ currentProfile.email }}"
+					/>
+				</div>
+				<div class="campo">
+					<label for="photo">Adicionar foto de perfil</label>
+					<input
+						type="text"
+						name="photo"
+						id="photo"
+						placeholder="Insira a URL de sua foto de perfil"
+						value="{{ currentProfile.profilePicture }}"
+					/>
+				</div>
+
+				<div class="buttons">
+					<a href="/profile-dashboard" class="btn-outline btn-links">
+						Cancelar
+					</a>
+					<button class="btn" type="submit">Confirmar</button>
+				</div>
+			</form>
+		</main>
+	</body>
+</html>

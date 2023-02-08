@@ -1,0 +1,19 @@
+.menu form {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu form button {
+    padding: 12px 24px;
+}
+
+select {
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 14px;
+    background-color: #7e4c89;
+    color: var(--white);
+    border: 1px solid var(--white);
+    max-width: 200px;
+    padding: 8px 16px;
+}

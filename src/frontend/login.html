@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles/general.css" />
+        <link rel="stylesheet" href="/styles/login.css" />
+
+        <title>LinkShare</title>
+    </head>
+    <body>
+        <main>
+            <h1>Login</h1>
+            <form method="POST" action="#">
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        placeholder="Digite aqui o seu email"
+                    />
+                </div>
+                <div class="campo">
+                    <label for="password">Senha</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Digite sua senha"
+                    />
+                </div>
+                <div class="buttons">
+                    <a href="/" class="btn-outline btn-links">Cancelar</a>
+                    <button class="btn" type="submit">Entrar</button>
+                </div>
+                <a href="/cadastro" class="btn-underline">Criar conta</a>
+            </form>
+            {% if flash %}
+            <div class="alert alert-danger" role="alert">{{ flash.error }}</div>
+            {% endif %}
+        </main>
+    </body>
+</html>
