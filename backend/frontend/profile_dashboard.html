@@ -3,7 +3,10 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
 		<link rel="stylesheet" href="./styles/general.css" />
 		<link rel="stylesheet" href="./styles/dashboard.css" />
 		<title>LinkShare</title>
@@ -16,12 +19,18 @@
 
 			<div>
 				<a href="/playlists" class="btn btn-dashboard">
-					<img src="./assets/images/plus-square.svg" alt="" />
+					<img
+						src="./assets/images/plus-square.svg"
+						alt=""
+					/>
 					Criar playlist</a
 				>
 
 				<a href="/musics" class="btn btn-dashboard">
-					<img src="./assets/images/plus-square.svg" alt="" />
+					<img
+						src="./assets/images/plus-square.svg"
+						alt=""
+					/>
 					Criar música</a
 				>
 
@@ -80,7 +89,8 @@
 				</div>
 				<div class="info">
 					<p>
-						{{ "Público" if not playlist.isPrivate else "Privado" }}
+						{{ "Público" if not playlist.isPrivate else
+						"Privado" }}
 					</p>
 					<p>Criado em {{ playlist.createdAt }}</p>
 				</div>
