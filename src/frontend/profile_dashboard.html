@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles/general.css" />
+		<link rel="stylesheet" href="./styles/dashboard.css" />
+		<title>LinkShare</title>
+	</head>
+	<body>
+		<header>
+			<div>
+				<img src="./assets/images/logo.svg" alt="" />
+			</div>
+
+			<div>
+				<a href="/playlists" class="btn btn-dashboard">
+					<img src="./assets/images/plus-square.svg" alt="" />
+					Criar playlist</a
+				>
+
+				<a href="/musics" class="btn btn-dashboard">
+					<img src="./assets/images/plus-square.svg" alt="" />
+					Criar música</a
+				>
+
+				<div class="menu">
+					<ul>
+						<li>
+							<span
+								>Tipo de playlist<img
+									src="./assets/images/chevron-down.svg"
+									alt=""
+							/></span>
+							<ul>
+								<li>Público</li>
+								<li>Privado</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="menu">
+				<ul>
+					<li>
+						<span>Olá, Lyzzandro!</span>
+						<ul>
+							<li>Editar</li>
+							<li>Sair</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</header>
+
+		<main>
+			{% for playlist in playlists %}
+			<div class="playlist">
+				<div class="header-playlist">
+					<div>
+						<img src="{{ playlist.image }}" alt="" />
+					</div>
+					<div>
+						<p>{{ playlist.name }}</p>
+						<p>{{ playlist.numberOfMusics }}</p>
+					</div>
+				</div>
+				<div class="songs">
+					<ul>
+						{% for music in playlist.musicNames %}
+						<li>
+							<a href="/musics/{{ music.id }}/edit"
+								>{{ music.name }}</a
+							>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="info">
+					<p>
+						{{ "Público" if not playlist.isPrivate else "Privado" }}
+					</p>
+					<p>Criado em {{ playlist.createdAt }}</p>
+				</div>
+			</div>
+			{% endfor %}
+		</main>
+	</body>
+</html>

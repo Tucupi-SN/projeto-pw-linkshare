@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link rel="stylesheet" href="./styles/general.css" />
+		<link rel="stylesheet" href="./styles/login.css" />
+		<title>LinkShare</title>
+	</head>
+	<body>
+		<main>
+			<h1>Cadastro</h1>
+			<form>
+				<div class="campo">
+					<label for="name">Nome</label>
+					<input
+						type="text"
+						name="name"
+						id="name"
+						placeholder="Digite aqui o seu email"
+					/>
+				</div>
+				<div class="campo">
+					<label for="email">E-mail</label>
+					<input
+						type="text"
+						name="email"
+						id="email"
+						placeholder="Digite aqui o seu email"
+					/>
+				</div>
+				<div class="campo profile-photo">
+					<label for="photo">
+						<img
+							src="./assets/images/upload.svg"
+							alt=""
+						/>
+						Adicionar foto do perfil</label
+					>
+					<input
+						type="file"
+						name="photo"
+						id="photo"
+						placeholder="Digite aqui o seu email"
+					/>
+				</div>
+				<div class="campo">
+					<label for="password1">Senha</label>
+					<input
+						type="password"
+						name="password1"
+						id="password1"
+						placeholder="Digite sua senha"
+					/>
+				</div>
+				<div class="campo">
+					<label for="password2">Confirmar senha</label>
+					<input
+						type="password"
+						name="password2"
+						id="password2"
+						placeholder="Confirme sua senha"
+					/>
+				</div>
+				<div class="buttons">
+					<a
+						href="./index.html"
+						class="btn-outline btn-links"
+					>
+						Cancelar
+					</a>
+					<button
+						class="btn"
+						type="submit"
+						onclick="registerProfile()"
+					>
+						Entrar
+					</button>
+				</div>
+			</form>
+		</main>
+	</body>
+</html>
