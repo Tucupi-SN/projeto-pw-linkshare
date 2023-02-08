@@ -13,7 +13,7 @@
 	<body>
 		<main>
 			<h1>Adicionar música</h1>
-			<form>
+			<form method="POST">
 				<div class="campo">
 					<label for="title">Título da música</label>
 					<input
@@ -86,11 +86,10 @@
 				<div class="campo profile-photo">
 					<label for="musics-styles">Adicionar na playlist</label>
 					<div>
-						<select name="musics-styles" id="music-playlist">
-							<option disabled selected>Escolher playlist</option>
-							<option value="1">Rock</option>
-							<option value="2">Blues</option>
-						</select>
+						<select
+							name="musics-styles"
+							id="music-playlist"
+						></select>
 					</div>
 				</div>
 
@@ -98,8 +97,7 @@
 					<a href="./index.html" class="btn-outline btn-links">
 						Cancelar
 					</a>
-					<!-- <button class="btn" type="submit" id="add-button"> -->
-					<button class="btn" id="add-button" type="button">
+					<button class="btn" type="submit" id="add-button">
 						Adicionar
 					</button>
 				</div>
