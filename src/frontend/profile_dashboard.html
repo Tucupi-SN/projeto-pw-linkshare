@@ -11,7 +11,7 @@
 	<body>
 		<header>
 			<div>
-				<img src="./assets/images/logo.svg" alt="" />
+				<a href="/"><img src="./assets/images/logo.svg" alt="" /></a>
 			</div>
 
 			<div>
@@ -26,29 +26,26 @@
 				>
 
 				<div class="menu">
-					<ul>
-						<li>
-							<span
-								>Tipo de playlist<img
-									src="./assets/images/chevron-down.svg"
-									alt=""
-							/></span>
-							<ul>
-								<li>Público</li>
-								<li>Privado</li>
-							</ul>
-						</li>
-					</ul>
+					<form method="POST" action="/profile-dashboard">
+						<select name="filter-option" id="filter-option">
+							<option value="1">Ambas</option>
+							<option value="2">Públicas</option>
+							<option value="3">Privadas</option>
+						</select>
+						<button type="submit">Filtrar</button>
+					</form>
 				</div>
 			</div>
 
 			<div class="menu">
 				<ul>
 					<li>
-						<span>Olá, Lyzzandro!</span>
+						<span>Olá, {{ currentUser.firstName }}!</span>
 						<ul>
 							<li>Editar</li>
-							<li>Sair</li>
+							<form method="POST" action="/logout">
+								<li><button type="submit">Sair</button></li>
+							</form>
 						</ul>
 					</li>
 				</ul>

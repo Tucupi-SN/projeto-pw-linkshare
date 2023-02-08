@@ -1,34 +1,33 @@
 const express = require("express");
 const router = express.Router();
 
-const { Music, Playlist } = require("../database/models");
+const { Music, Playlist, Profile } = require("../database/models");
 
-router.get("/", (req, res) => {
-	res.render("index.html");
-});
+const { isAuthenticatedWeb } = require("../middlewares");
 
-// endpoints de login e cadastro
+const bcrypt = require("bcrypt");
 
-router.get("/cadastro", (req, res) => {
-	res.render("cadastro.html");
-});
+router.get("/", async (req, res) => {
+	const userId = req.session.userId;
 
-router.post("/cadastro", (req, res) => {
-	res.redirect("/login");
-});
+	if (!userId) {
+		return res.render("home.html");
+	}
 
-router.get("/login", (req, res) => {
-	res.render("login.html");
-});
+	const currentUser = await Profile.findByPk(userId);
 
-// endpoints de Music
+	currentUser.firstName = currentUser.name.split(" ")[0];
 
-router.get("/dashboard", async (req, res) => {
 	context = {
 		playlists: await fetch(
 			"http://localhost:3000/api/playlists/public"
 		).then((response) => response.json()),
+		currentUser: currentUser,
 	};
+
+	context.playlists = context.playlists.filter(
+		(playlist) => playlist.profile.id !== parseInt(userId)
+	);
 
 	for (let index = 0; index < context.playlists.length; index++) {
 		const element = context.playlists[index];
@@ -54,15 +53,78 @@ router.get("/dashboard", async (req, res) => {
 				}
 			});
 	}
-
 	res.render("dashboard.html", context);
 });
 
-router.get("/profile-dashboard", async (req, res) => {
+// endpoints de login e cadastro
+
+router.get("/cadastro", (req, res) => {
+	res.render("cadastro.html");
+});
+
+router.post("/cadastro", async (req, res) => {
+	let newProfile = {
+		name: req.body.name,
+		email: req.body.email,
+		profilePicture: req.body.photo,
+		password: req.body.password,
+	};
+
+	const hash = await bcrypt.hash(newProfile.password, 10);
+	newProfile.password = hash;
+
+	let userCreated = await Profile.create(newProfile);
+	await userCreated.save();
+
+	res.redirect("/login");
+});
+
+router.get("/login", (req, res) => {
+	res.render("login.html");
+});
+
+router.post("/login", async (req, res) => {
+	let loginPayload = {
+		email: req.body.email,
+		password: req.body.password,
+	};
+
+	let user = await Profile.findOne(
+		{ where: { email: loginPayload.email } },
+		{
+			include: { all: true, nested: true },
+		}
+	);
+
+	const match = user
+		? await bcrypt.compare(loginPayload.password, user.password)
+		: undefined;
+
+	if (user && match) {
+		req.session.userId = user.id;
+		req.session.flash = {};
+		res.redirect("/profile-dashboard");
+	} else {
+		req.session.flash = { error: "Email or password not valid." };
+	}
+});
+
+router.post("/logout", (req, res) => {
+	req.session.destroy();
+	res.redirect("/login");
+});
+
+router.get("/profile-dashboard", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+	const currentUser = await Profile.findByPk(userId);
+
+	currentUser.firstName = currentUser.name.split(" ")[0];
+
 	context = {
 		playlists: await fetch(
-			"http://localhost:3000/api/profiles/1/playlists"
+			`http://localhost:3000/api/profiles/${userId}/playlists`
 		).then((response) => response.json()),
+		currentUser: currentUser,
 	};
 
 	for (let index = 0; index < context.playlists.length; index++) {
@@ -92,16 +154,76 @@ router.get("/profile-dashboard", async (req, res) => {
 	res.render("profile_dashboard.html", context);
 });
 
-router.get("/musics", async (req, res) => {
+router.post("/profile-dashboard", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+	const currentUser = await Profile.findByPk(userId);
+
+	currentUser.firstName = currentUser.name.split(" ")[0];
+
+	let queryParams = "";
+
+	let filterOptions = {
+		2: "false",
+		3: "true",
+	};
+	let filterOption = req.body["filter-option"];
+
+	if (filterOption !== "1") {
+		queryParams = `?private=${filterOptions[parseInt(filterOption)]}`;
+	}
+
+	let playlists = await fetch(
+		`http://localhost:3000/api/profiles/${userId}/playlists` + queryParams
+	).then((response) => response.json());
+
+	context = {
+		playlists: playlists,
+		currentUser: currentUser,
+	};
+
+	console.log(playlists);
+
+	for (let index = 0; index < context.playlists.length; index++) {
+		const element = context.playlists[index];
+		await fetch(`http://localhost:3000/api/playlists/${element.id}/musics`)
+			.then((response) => response.json())
+			.then((data) => {
+				element.numberOfMusics = data.length;
+
+				element.musicNames = [];
+
+				for (let i = 0; i < data.length; i++) {
+					if (i !== data.length - 1) {
+						element.musicNames.push({
+							id: data[i].id,
+							name: `${i + 1} - ${data[i].title}, `,
+						});
+					} else {
+						element.musicNames.push({
+							id: data[i].id,
+							name: `${i + 1} - ${data[i].title}`,
+						});
+					}
+				}
+			});
+	}
+	res.render("profile_dashboard.html", context);
+});
+
+router.get("/musics", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+
 	context = {
 		playlistChoices: await fetch(
-			"http://localhost:3000/api/profiles/1/playlists"
+			`http://localhost:3000/api/profiles/${userId}/playlists`
 		).then((response) => response.json()),
 	};
 	res.render("add_music.html", context);
 });
 
-router.post("/musics", async (req, res) => {
+router.post("/musics", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+
 	let musicStyles = {
 		1: "Rock",
 		2: "Blues",
@@ -142,17 +264,19 @@ router.post("/musics", async (req, res) => {
 
 	context = {
 		playlistChoices: await fetch(
-			"http://localhost:3000/api/profiles/1/playlists"
+			`http://localhost:3000/api/profiles/${userId}/playlists`
 		).then((response) => response.json()),
 	};
 
 	res.redirect("/profile-dashboard");
 });
 
-router.get("/musics/:id/edit", async (req, res) => {
+router.get("/musics/:id/edit", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+
 	context = {
 		playlistChoices: await fetch(
-			"http://localhost:3000/api/profiles/1/playlists"
+			`http://localhost:3000/api/profiles/${userId}/playlists`
 		).then((response) => response.json()),
 		currentMusic: await fetch(
 			`http://localhost:3000/api/musics/${req.params.id}`
@@ -219,12 +343,14 @@ router.get("/playlists", async (req, res) => {
 	res.render("create_playlist.html");
 });
 
-router.post("/playlists", async (req, res) => {
+router.post("/playlists", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+
 	let newPlaylist = {
 		name: req.body.title,
 		image: req.body.image,
-		isPrivate: req.body.public,
-		profileId: 1, // TODO: Passar dinamicamente pelo usuario logado
+		isPrivate: req.body.public !== undefined ? true : false,
+		profileId: userId,
 	};
 
 	await Playlist.create(newPlaylist);

@@ -1,10 +1,18 @@
 const isAuthenticated = (req, res, next) => {
 	// if (req.session.userId) {
-	//   next();
+	// 	next();
 	// } else {
-	//   res.status(401).json({ message: "User not autheticated." });
+	// 	res.status(401).json({ message: "User not autheticated." });
 	// }
 	next();
 };
 
-module.exports = { isAuthenticated };
+const isAuthenticatedWeb = (req, res, next) => {
+	if (req.session.userId) {
+		next();
+	} else {
+		res.redirect("/login");
+	}
+};
+
+module.exports = { isAuthenticated, isAuthenticatedWeb };

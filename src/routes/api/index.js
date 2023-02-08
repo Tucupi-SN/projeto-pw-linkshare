@@ -40,6 +40,7 @@ router.delete(
 
 // endpoints de Profile
 
+// router.get("/profiles", isAuthenticated, profilesController.getAllProfiles);
 router.get("/profiles/:id", isAuthenticated, profilesController.getProfileById);
 router.get(
 	"/profiles/:id/playlists",

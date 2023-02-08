@@ -11,16 +11,20 @@
 	<body>
 		<header>
 			<div>
-				<img src="./assets/images/logo.svg" alt="" />
+				<a href="/"><img src="./assets/images/logo.svg" alt="" /></a>
 			</div>
 			<div class="menu">
 				<ul>
 					<li>
-						<span>Olá, Lyzzandro!</span>
+						<span>Olá, {{ currentUser.firstName }}</span>
 						<ul>
-							<li>Minha dashboard</li>
+							<li>
+								<a href="/profile-dashboard">Minha dashboard</a>
+							</li>
 							<li>Editar</li>
-							<li>Sair</li>
+							<form method="POST" action="/logout">
+								<li><button type="submit">Sair</button></li>
+							</form>
 						</ul>
 					</li>
 				</ul>
