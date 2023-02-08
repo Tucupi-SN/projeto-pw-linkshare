@@ -181,8 +181,6 @@ router.post("/profile-dashboard", isAuthenticatedWeb, async (req, res) => {
 		currentUser: currentUser,
 	};
 
-	console.log(playlists);
-
 	for (let index = 0; index < context.playlists.length; index++) {
 		const element = context.playlists[index];
 		await fetch(`http://localhost:3000/api/playlists/${element.id}/musics`)
@@ -274,13 +272,19 @@ router.post("/musics", isAuthenticatedWeb, async (req, res) => {
 router.get("/musics/:id/edit", isAuthenticatedWeb, async (req, res) => {
 	const userId = req.session.userId;
 
+	currentMusic = await fetch(
+		`http://localhost:3000/api/musics/${req.params.id}`
+	).then((response) => response.json());
+
+	if (userId !== currentMusic.playlist.profile.id) {
+		return res.redirect("/");
+	}
+
 	context = {
 		playlistChoices: await fetch(
 			`http://localhost:3000/api/profiles/${userId}/playlists`
 		).then((response) => response.json()),
-		currentMusic: await fetch(
-			`http://localhost:3000/api/musics/${req.params.id}`
-		).then((response) => response.json()),
+		currentMusic: currentMusic,
 	};
 	res.render("editar_musica.html", context);
 });
@@ -330,8 +334,6 @@ router.post("/musics/:id/edit", async (req, res) => {
 		url: req.body.url,
 	};
 
-	console.log(musicPayload);
-
 	let musicToUpdate = await Music.findByPk(req.params.id);
 	musicToUpdate.update(musicPayload);
 	await musicToUpdate.save();
@@ -354,6 +356,77 @@ router.post("/playlists", isAuthenticatedWeb, async (req, res) => {
 	};
 
 	await Playlist.create(newPlaylist);
+
+	res.redirect("/profile-dashboard");
+});
+
+router.get("/playlists/:id/edit", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+
+	currentPlaylist = await fetch(
+		`http://localhost:3000/api/playlists/${req.params.id}`
+	).then((response) => response.json());
+
+	if (userId !== currentPlaylist.profile.id) {
+		return res.redirect("/");
+	}
+
+	context = {
+		currentPlaylist: currentPlaylist,
+	};
+	res.render("editar_playlist.html", context);
+});
+
+router.post("/playlists/:id/edit", isAuthenticatedWeb, async (req, res) => {
+	let currentPlaylist = await fetch(
+		`http://localhost:3000/api/playlists/${req.params.id}`
+	).then((response) => response.json());
+
+	let playlistPayload = {
+		name: req.body.title,
+		image: req.body.image,
+		isPrivate: req.body.public !== undefined ? true : false,
+		profileId: currentPlaylist.profile.id,
+	};
+
+	let playlistToUpdate = await Playlist.findByPk(req.params.id);
+	playlistToUpdate.update(playlistPayload);
+	await playlistToUpdate.save();
+
+	res.redirect("/profile-dashboard");
+});
+
+router.get("/profile/edit", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+
+	let currentProfile = await fetch(
+		`http://localhost:3000/api/profiles/${userId}`
+	).then((response) => response.json());
+
+	context = {
+		currentProfile: currentProfile,
+	};
+
+	res.render("editar_perfil.html", context);
+});
+
+router.post("/profile/edit", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+
+	let currentProfile = await fetch(
+		`http://localhost:3000/api/profiles/${userId}`
+	).then((response) => response.json());
+
+	let profilePayload = {
+		name: req.body.name,
+		email: req.body.email,
+		profilePicture: req.body.photo,
+		password: currentProfile.password,
+	};
+
+	let profileToUpdate = await Profile.findByPk(userId);
+	profileToUpdate.update(profilePayload);
+	await profileToUpdate.save();
 
 	res.redirect("/profile-dashboard");
 });

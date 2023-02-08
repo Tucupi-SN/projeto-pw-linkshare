@@ -42,7 +42,9 @@
 					<li>
 						<span>Olá, {{ currentUser.firstName }}!</span>
 						<ul>
-							<li>Editar</li>
+							<form method="GET" action="/profile/edit">
+								<li><button type="submit">Editar</button></li>
+							</form>
 							<form method="POST" action="/logout">
 								<li><button type="submit">Sair</button></li>
 							</form>
@@ -60,7 +62,11 @@
 						<img src="{{ playlist.image }}" alt="" />
 					</div>
 					<div>
-						<p>{{ playlist.name }}</p>
+						<p>
+							<a href="/playlists/{{ playlist.id }}/edit"
+								>{{ playlist.name }}</a
+							>
+						</p>
 						<p>{{ playlist.numberOfMusics }}</p>
 					</div>
 				</div>
