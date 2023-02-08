@@ -6,11 +6,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="/styles/general.css" />
 		<link rel="stylesheet" href="/styles/login.css" />
+
 		<title>LinkShare</title>
 	</head>
 	<body>
 		<main>
 			<h1>Login</h1>
+			{% if flash %}
+			<div class="alert alert-danger" role="alert">{{ flash.error }}</div>
+			{% endif %}
 			<form method="POST" action="#">
 				<div class="campo">
 					<label for="email">E-mail</label>

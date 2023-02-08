@@ -73,9 +73,16 @@ router.post("/cadastro", async (req, res) => {
 	const hash = await bcrypt.hash(newProfile.password, 10);
 	newProfile.password = hash;
 
-	let userCreated = await Profile.create(newProfile);
-	await userCreated.save();
-
+	try {
+		let userCreated = await Profile.create(newProfile);
+		await userCreated.save();
+	} catch (err) {
+		req.session.flash = { error: "User with given email already exists" };
+		context = {
+			flash: req.session.flash,
+		};
+		return res.render("cadastro.html", context);
+	}
 	res.redirect("/login");
 });
 
@@ -106,6 +113,10 @@ router.post("/login", async (req, res) => {
 		res.redirect("/profile-dashboard");
 	} else {
 		req.session.flash = { error: "Email or password not valid." };
+		context = {
+			flash: req.session.flash,
+		};
+		res.render("login.html", context);
 	}
 });
 
