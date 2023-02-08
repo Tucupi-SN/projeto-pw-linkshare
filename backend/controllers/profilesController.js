@@ -20,6 +20,7 @@ const login = async (req, res) => {
   if (user && match) {
     req.session.userId = user.id;
     req.session.flash = {};
+    res.locals.authenticated = true;
     res.json({ message: "User authenticated with success." });
   } else {
     req.session.flash = { error: "Email or password not valid." };
@@ -29,6 +30,7 @@ const login = async (req, res) => {
 
 const logout = (req, res) => {
   req.session.destroy();
+  res.locals.authenticated = false;
   res.json({ message: "Logged out with success." });
 };
 
