@@ -13,7 +13,7 @@
 	<body>
 		<main>
 			<h1>Adicionar música</h1>
-			<form method="POST">
+			<form method="POST" , action="/musics">
 				<div class="campo">
 					<label for="title">Título da música</label>
 					<input
@@ -21,6 +21,16 @@
 						name="title"
 						id="music-title"
 						placeholder="Digite aqui o título da música"
+					/>
+				</div>
+
+				<div class="campo">
+					<label for="artist">Url</label>
+					<input
+						type="text"
+						name="url"
+						id="music-url"
+						placeholder="Insira a url da musica"
 					/>
 				</div>
 
@@ -42,7 +52,7 @@
 								type="number"
 								min="0"
 								max="59"
-								name="duration1"
+								name="duration"
 								id="music-duration"
 							/>
 							<p>min</p>
@@ -84,12 +94,15 @@
 				</div>
 
 				<div class="campo profile-photo">
-					<label for="musics-styles">Adicionar na playlist</label>
+					<label for="playlistChoice">Adicionar na playlist</label>
 					<div>
-						<select
-							name="musics-styles"
-							id="music-playlist"
-						></select>
+						<select name="playlistChoice" id="music-playlist">
+							{% for option in playlistChoices %}
+							<option value="{{ option.id }}">
+								{{ option.name }}
+							</option>
+							{% endfor %}
+						</select>
 					</div>
 				</div>
 
@@ -103,6 +116,5 @@
 				</div>
 			</form>
 		</main>
-		<script src="scripts/add_music.js"></script>
 	</body>
 </html>

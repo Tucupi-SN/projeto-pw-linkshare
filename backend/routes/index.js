@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { Music } = require("../database/models");
+
 // endpoints de Music
 
 router.get("/dashboard", async (req, res) => {
@@ -60,6 +62,64 @@ router.get("/profile-dashboard", async (req, res) => {
 	res.render("profile_dashboard.html", context);
 });
 
-// router.get();
+router.get("/musics", async (req, res) => {
+	context = {
+		playlistChoices: await fetch(
+			"http://localhost:3000/api/profiles/1/playlists"
+		).then((response) => response.json()),
+	};
+	res.render("add_music.html", context);
+});
+
+router.post("/musics", async (req, res) => {
+	let musicStyles = {
+		1: "Rock",
+		2: "Blues",
+		3: "Jazz",
+		4: "Pop",
+		5: "Country",
+		6: "Reggae",
+		7: "Axé",
+		8: "Bossa Nova",
+		9: "Clássico",
+		10: "Folk",
+		11: "Música Eletrônica",
+		12: "Gospel/Religioso",
+		13: "Forró",
+		14: "Hip Hop",
+		15: "Instrumental",
+		16: "MPB",
+		17: "Rap",
+		18: "Progressivo",
+		19: "R&B",
+		20: "Samba",
+		21: "Trap",
+		22: "Soul",
+		23: "Pagode",
+		24: "Outro",
+	};
+
+	let newMusic = {
+		title: req.body.title,
+		artist: req.body.artist,
+		duration: req.body.duration,
+		musicStyle: musicStyles[parseInt(req.body["musics-styles"])],
+		playlistId: parseInt(req.body.playlistChoice),
+		url: req.body.url,
+	};
+
+	await Music.create(newMusic);
+
+	console.log(newMusic);
+
+	context = {
+		playlistChoices: await fetch(
+			"http://localhost:3000/api/profiles/1/playlists"
+		).then((response) => response.json()),
+	};
+
+	res.redirect("/dashboard");
+	// res.render("add_music.html", context);
+});
 
 module.exports = router;
