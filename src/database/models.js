@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const database = require("./config.js");
+const crypto = require("crypto");
 
 const Playlist = database.define(
 	"Playlist",
@@ -59,6 +60,13 @@ const Profile = database.define(
 	},
 	{ updatedAt: false }
 );
+
+Profile.prototype.setPassword = function (password) {
+	this.salt = crypto.randomBytes(16);
+	this.password = crypto
+		.pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
+		.toString(`hex`);
+};
 
 const Music = database.define(
 	"Music",

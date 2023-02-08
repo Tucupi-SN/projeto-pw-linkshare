@@ -3,6 +3,24 @@ const router = express.Router();
 
 const { Music, Playlist } = require("../database/models");
 
+router.get("/", (req, res) => {
+	res.render("index.html");
+});
+
+// endpoints de login e cadastro
+
+router.get("/cadastro", (req, res) => {
+	res.render("cadastro.html");
+});
+
+router.post("/cadastro", (req, res) => {
+	res.redirect("/login");
+});
+
+router.get("/login", (req, res) => {
+	res.render("login.html");
+});
+
 // endpoints de Music
 
 router.get("/dashboard", async (req, res) => {
