@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { Music } = require("../database/models");
+const { Music, Playlist } = require("../database/models");
 
 // endpoints de Music
 
@@ -128,7 +128,7 @@ router.post("/musics", async (req, res) => {
 		).then((response) => response.json()),
 	};
 
-	res.redirect("/dashboard");
+	res.redirect("/profile-dashboard");
 });
 
 router.get("/musics/:id/edit", async (req, res) => {
@@ -144,13 +144,6 @@ router.get("/musics/:id/edit", async (req, res) => {
 });
 
 router.post("/musics/:id/edit", async (req, res) => {
-	// context = {
-	// 	playlistChoices: await fetch(
-	// 		"http://localhost:3000/api/profiles/1/playlists"
-	// 	).then((response) => response.json()),
-	// 	,
-	// };
-
 	let musicStyles = {
 		1: "Rock",
 		2: "Blues",
@@ -200,6 +193,23 @@ router.post("/musics/:id/edit", async (req, res) => {
 	let musicToUpdate = await Music.findByPk(req.params.id);
 	musicToUpdate.update(musicPayload);
 	await musicToUpdate.save();
+
+	res.redirect("/profile-dashboard");
+});
+
+router.get("/playlists", async (req, res) => {
+	res.render("create_playlist.html");
+});
+
+router.post("/playlists", async (req, res) => {
+	let newPlaylist = {
+		name: req.body.title,
+		image: req.body.image,
+		isPrivate: req.body.public,
+		profileId: 1, // TODO: Passar dinamicamente pelo usuario logado
+	};
+
+	await Playlist.create(newPlaylist);
 
 	res.redirect("/profile-dashboard");
 });

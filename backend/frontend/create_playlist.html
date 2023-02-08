@@ -3,10 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="./styles/general.css" />
 		<link rel="stylesheet" href="./styles/login.css" />
 		<link rel="stylesheet" href="./styles/create_playlist.css" />
@@ -15,7 +12,7 @@
 	<body>
 		<main>
 			<h1>Criar playlist</h1>
-			<form>
+			<form method="POST" , action="/playlists">
 				<div class="campo">
 					<label for="title">Título da playlist</label>
 					<input
@@ -25,19 +22,13 @@
 						placeholder="Digite aqui o título da playlist"
 					/>
 				</div>
-				<div class="campo profile-photo">
-					<label for="cover">
-						<img
-							src="./assets/images/upload.svg"
-							alt=""
-						/>
-						Adicionar foto da Playlist</label
-					>
+				<div class="campo">
+					<label for="image">URL da CAPA</label>
 					<input
-						type="file"
-						name="cover"
-						id="cover"
-						placeholder="Digite aqui o seu email"
+						type="text"
+						name="image"
+						id="title"
+						placeholder="Insira uma URL válida"
 					/>
 				</div>
 				<div class="campo privacy">
@@ -45,27 +36,16 @@
 					<div>
 						<div>
 							<p>Público</p>
-							<input
-								type="radio"
-								id="public"
-								name="privacity"
-							/>
+							<input type="radio" id="public" name="public" />
 						</div>
 						<div>
 							<p>Privado</p>
-							<input
-								type="radio"
-								id="privacy"
-								name="privacity"
-							/>
+							<input type="radio" id="privacy" name="privacity" />
 						</div>
 					</div>
 				</div>
 				<div class="buttons">
-					<a
-						href="./index.html"
-						class="btn-outline btn-links"
-					>
+					<a href="./index.html" class="btn-outline btn-links">
 						Cancelar
 					</a>
 					<button class="btn" type="submit">Criar</button>
