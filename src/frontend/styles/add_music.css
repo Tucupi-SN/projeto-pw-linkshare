@@ -1,3 +1,7 @@
+main {
+    margin: 80px 0;
+}
+
 .duration {
     display: flex;
     gap: 8px;

@@ -1,94 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/styles/general.css" />
-		<link rel="stylesheet" href="/styles/dashboard.css" />
-		<title>LinkShare</title>
-	</head>
-	<body>
-		<header>
-			<div>
-				<a href="/"><img src="./assets/images/logo.svg" alt="" /></a>
-			</div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles/general.css" />
+        <link rel="stylesheet" href="/styles/dashboard.css" />
+        <link rel="stylesheet" href="/styles/profile_dashboard.css" />
+        <title>LinkShare</title>
+    </head>
+    <body>
+        <header>
+            <div>
+                <a href="/"><img src="./assets/images/logo.svg" alt="" /></a>
+            </div>
 
-			<div>
-				<a href="/playlists" class="btn btn-dashboard">
-					<img src="./assets/images/plus-square.svg" alt="" />
-					Criar playlist</a
-				>
+            <div>
+                <a href="/playlists" class="btn btn-dashboard">
+                    <img src="./assets/images/plus-square.svg" alt="" />
+                    Criar playlist</a
+                >
 
-				<a href="/musics" class="btn btn-dashboard">
-					<img src="./assets/images/plus-square.svg" alt="" />
-					Criar música</a
-				>
+                <a href="/musics" class="btn btn-dashboard">
+                    <img src="./assets/images/plus-square.svg" alt="" />
+                    Criar música</a
+                >
 
-				<div class="menu">
-					<form method="POST" action="/profile-dashboard">
-						<select name="filter-option" id="filter-option">
-							<option value="1">Ambas</option>
-							<option value="2">Públicas</option>
-							<option value="3">Privadas</option>
-						</select>
-						<button type="submit">Filtrar</button>
-					</form>
-				</div>
-			</div>
+                <div class="menu">
+                    <form method="POST" action="/profile-dashboard">
+                        <select name="filter-option" id="filter-option">
+                            <option value="1">Ambas</option>
+                            <option value="2">Públicas</option>
+                            <option value="3">Privadas</option>
+                        </select>
+                        <button type="submit">Filtrar</button>
+                    </form>
+                </div>
+            </div>
 
-			<div class="menu">
-				<ul>
-					<li>
-						<span>Olá, {{ currentUser.firstName }}!</span>
-						<ul>
-							<form method="GET" action="/profile/edit">
-								<li><button type="submit">Editar</button></li>
-							</form>
-							<form method="POST" action="/logout">
-								<li><button type="submit">Sair</button></li>
-							</form>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</header>
+            <div class="menu">
+                <ul>
+                    <li>
+                        <span>Olá, {{ currentUser.firstName }}!</span>
+                        <ul>
+                            <form method="GET" action="/profile/edit">
+                                <li><button type="submit">Editar</button></li>
+                            </form>
+                            <form method="POST" action="/logout">
+                                <li><button type="submit">Sair</button></li>
+                            </form>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </header>
 
-		<main>
-			{% for playlist in playlists %}
-			<div class="playlist">
-				<div class="header-playlist">
-					<div>
-						<img src="{{ playlist.image }}" alt="" />
-					</div>
-					<div>
-						<p>
-							<a href="/playlists/{{ playlist.id }}/edit"
-								>{{ playlist.name }}</a
-							>
-						</p>
-						<p>{{ playlist.numberOfMusics }}</p>
-					</div>
-				</div>
-				<div class="songs">
-					<ul>
-						{% for music in playlist.musicNames %}
-						<li>
-							<a href="/musics/{{ music.id }}/edit"
-								>{{ music.name }}</a
-							>
-						</li>
-						{% endfor %}
-					</ul>
-				</div>
-				<div class="info">
-					<p>
-						{{ "Público" if not playlist.isPrivate else "Privado" }}
-					</p>
-					<p>Criado em {{ playlist.createdAt }}</p>
-				</div>
-			</div>
-			{% endfor %}
-		</main>
-	</body>
+        <main>
+            {% for playlist in playlists %}
+            <div class="playlist">
+                <div class="header-playlist">
+                    <div class="image">
+                        <img src="{{ playlist.image }}" alt="" />
+                    </div>
+                    <div>
+                        <p>
+                            <a href="/playlists/{{ playlist.id }}/edit"
+                                >{{ playlist.name }}</a
+                            >
+                        </p>
+                        <p>{{ playlist.numberOfMusics }}</p>
+                    </div>
+                </div>
+                <div class="songs">
+                    <ul>
+                        {% for music in playlist.musicNames %}
+                        <li>
+                            <a href="/musics/{{ music.id }}/edit"
+                                >{{ music.name }}</a
+                            >
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="info">
+                    <p>
+                        {{ "Público" if not playlist.isPrivate else "Privado" }}
+                    </p>
+                    <p>Criado em {{ playlist.createdAt }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </main>
+    </body>
 </html>

@@ -51,6 +51,12 @@ main {
     gap: 16px;
 }
 
+.header-playlist img {
+    object-fit: cover;
+    width: 90px;
+    height: 90px;
+}
+
 .header-playlist div:nth-child(2) {
     display: flex;
     flex-direction: column;
@@ -156,16 +162,12 @@ header a {
 }
 
 .menu ul ul li {
-    background-color: var(--white);
-    color: var(--purple);
     height: 36px;
     line-height: 36px;
     transition: 300ms;
 }
 
 .menu ul ul li:hover {
-    background-color: var(--purple);
-    color: var(--white);
     height: 48px;
     line-height: 48px;
 }
@@ -181,4 +183,19 @@ header a {
     justify-content: center;
     align-items: center;
     gap: 16px;
+}
+
+.menu button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--white);
+    color: var(--purple);
+}
+
+.menu button:hover {
+    background-color: var(--purple);
+    color: var(--white);
 }
