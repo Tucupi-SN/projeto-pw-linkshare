@@ -403,6 +403,10 @@ router.get("/profile/edit", isAuthenticatedWeb, async (req, res) => {
 		`http://localhost:3000/api/profiles/${userId}`
 	).then((response) => response.json());
 
+	if (userId !== currentProfile.id) {
+		return res.redirect("/");
+	}
+
 	context = {
 		currentProfile: currentProfile,
 	};
