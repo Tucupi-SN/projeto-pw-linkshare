@@ -352,6 +352,18 @@ router.post("/musics/:id/edit", async (req, res) => {
 	res.redirect("/profile-dashboard");
 });
 
+router.get("/musics/:id/delete", async (req, res) => {
+	const userId = req.session.userId;
+
+	let musicToDelete = await Music.findByPk(req.params.id);
+
+	if (userId !== musicToDelete.playlist.profile.id) {
+		return res.redirect("/profile-dashboard");
+	}
+	await musicToDelete.destroy();
+	return res.redirect("/profile-dashboard");
+});
+
 router.get("/playlists", async (req, res) => {
 	res.render("create_playlist.html");
 });
@@ -405,6 +417,19 @@ router.post("/playlists/:id/edit", isAuthenticatedWeb, async (req, res) => {
 	await playlistToUpdate.save();
 
 	res.redirect("/profile-dashboard");
+});
+
+router.get("/playlists/:id/delete", isAuthenticatedWeb, async (req, res) => {
+	const userId = req.session.userId;
+
+	let playlistToDelete = await Playlist.findByPk(req.params.id);
+
+	if (userId !== playlistToDelete.profile.id) {
+		return res.redirect("/profile-dashboard");
+	}
+
+	await playlistToDelete.destroy();
+	return res.redirect("/profile-dashboard");
 });
 
 router.get("/profile/edit", isAuthenticatedWeb, async (req, res) => {
