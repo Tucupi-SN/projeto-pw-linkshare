@@ -68,7 +68,15 @@
 					</div>
 				</div>
 				<div class="songs">
-					<p>{{ playlist.musicNames }}</p>
+					<ul>
+						{% for music in playlist.musicNames %}
+						<li>
+							<a href="/musics/{{ music.id }}/edit"
+								>{{ music.name }}</a
+							>
+						</li>
+						{% endfor %}
+					</ul>
 				</div>
 				<div class="info">
 					<p>

@@ -79,6 +79,19 @@ main {
     letter-spacing: -0.011em;
 }
 
+.songs li {
+    color: white;
+    list-style: none;
+}
+
+.songs ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+}
+
 .info {
     height: 100%;
     display: flex;

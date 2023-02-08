@@ -40,7 +40,11 @@
 					</div>
 				</div>
 				<div class="songs">
-					<p>{{ playlist.musicNames }}</p>
+					<ul>
+						{% for music in playlist.musicNames %}
+						<li>{{ music.name }}</li>
+						{% endfor %}
+					</ul>
 				</div>
 				<div class="info">
 					<p>
