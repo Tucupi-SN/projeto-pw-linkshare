@@ -19,7 +19,7 @@
 					<input
 						type="text"
 						name="title"
-						id="title"
+						id="music-title"
 						placeholder="Digite aqui o título da música"
 					/>
 				</div>
@@ -29,7 +29,7 @@
 					<input
 						type="text"
 						name="artist"
-						id="artist"
+						id="music-artist"
 						placeholder="Digite o nome do artista"
 					/>
 				</div>
@@ -43,19 +43,9 @@
 								min="0"
 								max="59"
 								name="duration1"
-								id="duration1"
+								id="music-duration"
 							/>
 							<p>min</p>
-						</div>
-						<div>
-							<input
-								type="number"
-								min="0"
-								max="59"
-								name="duration2"
-								id="duration2"
-							/>
-							<p>seg</p>
 						</div>
 					</div>
 				</div>
@@ -63,14 +53,14 @@
 				<div class="campo">
 					<label for="musics-styles">Estilo musical</label>
 					<div>
-						<select name="musics-styles" id="musics-styles">
+						<select name="musics-styles" id="music-style">
 							<option disabled selected>Escolher estilo</option>
 							<option value="1">Rock</option>
 							<option value="2">Blues</option>
 							<option value="3">Jazz</option>
 							<option value="4">Pop</option>
 							<option value="5">Country</option>
-							<option value="6">Reage</option>
+							<option value="6">Reggae</option>
 							<option value="7">Axé</option>
 							<option value="8">Bossa Nova</option>
 							<option value="9">Clássico</option>
@@ -96,7 +86,7 @@
 				<div class="campo profile-photo">
 					<label for="musics-styles">Adicionar na playlist</label>
 					<div>
-						<select name="musics-styles" id="musics-styles">
+						<select name="musics-styles" id="music-playlist">
 							<option disabled selected>Escolher playlist</option>
 							<option value="1">Rock</option>
 							<option value="2">Blues</option>
@@ -108,9 +98,13 @@
 					<a href="./index.html" class="btn-outline btn-links">
 						Cancelar
 					</a>
-					<button class="btn" type="submit">Adicionar</button>
+					<!-- <button class="btn" type="submit" id="add-button"> -->
+					<button class="btn" id="add-button" type="button">
+						Adicionar
+					</button>
 				</div>
 			</form>
 		</main>
+		<script src="scripts/add_music.js"></script>
 	</body>
 </html>
