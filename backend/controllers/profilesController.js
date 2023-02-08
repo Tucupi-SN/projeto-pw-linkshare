@@ -84,6 +84,16 @@ const createProfile = async (req, res) => {
     });
   }
 
+  const hasUserWithThisEmail = await Profile.findOne({
+    where: { email: body.email },
+  });
+
+  if (hasUserWithThisEmail) {
+    return res.status(400).json({
+      message: "Email already registered",
+    });
+  }
+
   const hash = await bcrypt.hash(body.password, 10);
   body.password = hash;
 
