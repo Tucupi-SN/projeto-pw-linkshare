@@ -1,63 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/styles/general.css" />
-		<link rel="stylesheet" href="/styles/login.css" />
-		<link rel="stylesheet" href="/styles/create_playlist.css" />
-		<title>LinkShare</title>
-	</head>
-	<body>
-		<main>
-			<h1>Editar playlist</h1>
-			<form method="POST" action="#">
-				<div class="campo">
-					<label for="title">Título da playlist</label>
-					<input
-						type="text"
-						name="title"
-						id="title"
-						placeholder="Digite aqui o título da playlist"
-						value="{{ currentPlaylist.name }}"
-					/>
-				</div>
-				<div class="campo">
-					<label for="image">URL da CAPA</label>
-					<input
-						type="text"
-						name="image"
-						id="title"
-						placeholder="Insira uma URL válida"
-						value="{{ currentPlaylist.image }}"
-					/>
-				</div>
-				<div class="campo privacy">
-					<label for="title">Privacidade</label>
-					<div>
-						<div>
-							<p>É Privada?</p>
-							{% if currentPlaylist.isPrivate %}
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles/general.css" />
+        <link rel="stylesheet" href="/styles/login.css" />
+        <link rel="stylesheet" href="/styles/create_playlist.css" />
+        <title>LinkShare</title>
+    </head>
+    <body>
+        <main>
+            <h1>Editar playlist</h1>
+            <form method="POST" action="#">
+                <div class="campo">
+                    <label for="title">Título da playlist</label>
+                    <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        placeholder="Digite aqui o título da playlist"
+                        value="{{ currentPlaylist.name }}"
+                    />
+                </div>
+                <div class="campo">
+                    <label for="image">URL da CAPA</label>
+                    <input
+                        type="text"
+                        name="image"
+                        id="title"
+                        placeholder="Insira uma URL válida"
+                        value="{{ currentPlaylist.image }}"
+                    />
+                </div>
+                <div class="campo privacy">
+                    <label for="title">Privacidade</label>
+                    <div>
+                        <div>
+                            <p>É Privada?</p>
+                            {% if currentPlaylist.isPrivate %}
 
-							<input
-								type="checkbox"
-								id="public"
-								name="public"
-								checked="true"
-							/>
-							{% else %}
+                            <input
+                                type="checkbox"
+                                id="public"
+                                name="public"
+                                checked="true"
+                            />
+                            {% else %}
 
-							<input type="checkbox" id="public" name="public" />
-							{% endif %}
-						</div>
-					</div>
-				</div>
-				<div class="buttons">
-					<a href="/" class="btn-outline btn-links"> Cancelar </a>
-					<button class="btn" type="submit">Criar</button>
-				</div>
-			</form>
-		</main>
-	</body>
+                            <input type="checkbox" id="public" name="public" />
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="remover">
+                        <a href="/" class="btn-outline btn-links"
+                            ><img
+                                src="./assets/images/trash-2.svg"
+                                alt=""
+                            />
+                            Remover
+                        </a>
+                    </div>
+                    <a href="/" class="btn-outline btn-links"> Cancelar </a>
+                    <button class="btn" type="submit">Criar</button>
+                </div>
+            </form>
+        </main>
+    </body>
 </html>
