@@ -1,5 +1,6 @@
-const { Profile } = require("../database/models.js");
+const { Profile, Playlist } = require("../database/models.js");
 const { profileMapper } = require("../mappers/profileMapper.js");
+const { playlistMapper } = require("../mappers/playlistMapper.js");
 
 const getProfileById = async (req, res) => {
 	const { id } = req.params;
@@ -15,6 +16,24 @@ const getProfileById = async (req, res) => {
 	const mappedProfile = profileMapper(profile);
 
 	return res.json(mappedProfile);
+};
+
+const getPlaylistsByProfileId = async (req, res) => {
+	const { id } = req.params;
+
+	const allPlaylists = await Playlist.findAll({
+		include: { all: true, nested: true },
+	});
+
+	const userPlaylists = allPlaylists.filter(
+		(playlist) => playlist.profileId === parseInt(id)
+	);
+
+	const mappedPlaylists = userPlaylists.map((playlist) =>
+		playlistMapper(playlist)
+	);
+
+	return res.json(mappedPlaylists);
 };
 
 const createProfile = async (req, res) => {
@@ -85,6 +104,7 @@ const deleteProfile = async (req, res) => {
 
 module.exports = {
 	getProfileById,
+	getPlaylistsByProfileId,
 	createProfile,
 	updateProfile,
 	deleteProfile,

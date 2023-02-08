@@ -81,6 +81,10 @@ router.delete("/playlists/:id", playlistsController.deletePlaylist);
 // endpoints de Profile
 
 router.get("/profiles/:id", profilesController.getProfileById);
+router.get(
+	"/profiles/:id/playlists",
+	profilesController.getPlaylistsByProfileId
+);
 router.post("/profiles", profilesController.createProfile);
 router.patch("/profiles/:id", profilesController.updateProfile);
 router.delete("/profiles/:id", profilesController.deleteProfile);
