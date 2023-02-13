@@ -164,4 +164,88 @@ describe("getMusicsById", () => {
 		expect(Models.Music.findByPk).toHaveBeenCalledTimes(1);
 		expect(actualResponse.json).toBeCalledWith(expectedMusic);
 	});
+
+	test("Deve retornar status 404 e mensagem de error quando não existir id no banco", async () => {
+		// Arrange
+		const mockRequest = { params: { id: 3 } };
+		const mockResponse = {
+			json: jest.fn().mockReturnThis(),
+			status: jest.fn().mockReturnThis(),
+		};
+
+		jest.spyOn(Models.Music, "findByPk").mockResolvedValue(null);
+
+		// Act
+		const actualResponse = await musicsController.getMusicById(
+			mockRequest,
+			mockResponse
+		);
+
+		// Assert
+		expect(Models.Music.findByPk).toHaveBeenCalledTimes(1);
+		expect(actualResponse.status).toBeCalledWith(404);
+		expect(actualResponse.json).toBeCalledWith({
+			message: "No record with the given id",
+		});
+	});
+});
+
+describe("updateMusic", () => {
+	test("Deve alterar dados de uma musica com sucesso", async () => {
+		// Arrange
+		const musicUpdatedMock = {
+			...musicsMock[0],
+			name: "Hey Jude Editada",
+		};
+		const musicFoundMock = {
+			...musicsMock[0],
+			update: jest.fn().mockResolvedValue(musicUpdatedMock),
+		};
+
+		const expectedMusic = {
+			id: 1,
+			title: "Hey Jude Editada",
+			artist: "The Beatles",
+			duration: 10,
+			musicStyle: "Rock",
+			url: "musicurl.com",
+			createdAt: new Date(2023, 1, 1),
+			playlist: {
+				id: 1,
+				name: "Melhores",
+				image: "image.png",
+				createdAt: new Date(2023, 1, 1),
+				isPrivate: true,
+				profile: {
+					id: 1,
+					name: "Diogo",
+					email: "diogo@gmail.com",
+					profilePicture: "image.png",
+					createdAt: new Date(2023, 1, 1),
+				},
+			},
+		};
+
+		const mockRequest = {
+			params: { id: 1 },
+			body: {
+				name: "Hey Jude Editada",
+			},
+		};
+		const mockResponse = {
+			json: jest.fn().mockReturnThis(),
+		};
+
+		jest.spyOn(Models.Music, "findByPk").mockResolvedValue(musicFoundMock);
+
+		// Act
+		const actualResponse = await musicsController.updateMusic(
+			mockRequest,
+			mockResponse
+		);
+
+		// Assert
+		expect(Models.Music.findByPk).toHaveBeenCalledTimes(1);
+		expect(actualResponse.json).toBeCalledWith(expectedMusic);
+	});
 });
